@@ -1,0 +1,54 @@
+<div class="jumbotron">
+    <div class="container">
+        <h1>Contact</h1>
+        <p>Je suis actuellement sur un ou plusieurs projet(s)<br/>
+            et je vous invite à parcourir ma page Continuous <s>integration</s> Development.</p>
+        <p><a class="btn btn-primary btn-lg">Continuous Development &raquo;</a></p>
+
+        <form class="form-horizontal" role="form" name="formData" ng-submit="submitForm(formData.$valid)" novalidate>
+            <div class="form-group has-feedback" ng-class="{ 'has-error' : formData.name.$invalid && !formData.name.$pristine, 'has-success' : formData.name.length > 0 }">
+                <label for="name" class="col-sm-2 control-label">Nom / Pseudonyme</label>
+                <div class="col-sm-5">
+                    <input id="name" class="form-control" type="text" placeholder="Nom ou pseudonyme de contact" ng-model="formData.name" required />
+                    <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formData.name.length > 0"></span>
+                    <p ng-show="formData.name.$invalid && !formData.name.$pristine" class="help-block">Un nom ou un pseudonyme est nécessaire.</p>
+                </div>
+                <!--                <label for="firstName" class="col-sm-1 control-label">Nom</label>
+                                <div class="col-xs-4">
+                                    <input id="lastName" class="form-control" type="text" id="lastName" ng-model="formData.lastName">
+                                </div>-->
+            </div>
+            <div class="form-group has-feedback" ng-class="{ 'has-error' : formData.email.$invalid && !formData.email.$pristine, 'has-success' : !formData.email.$invalid }">
+                <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                <div class="col-sm-6">
+                    <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Votre adresse de contact" ng-model="formData.from" required />
+                    <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="!formData.email.$invalid"></span>
+                    <p ng-show="formData.email.$invalid && !formData.email.$pristine" class="help-block">Adresse email invalide.</p>
+                </div>
+            </div>
+            <div class="form-group has-feedback" ng-class="{ 'has-success' : formData.object.length > 0 }">
+                <label for="inputTitle" class="col-sm-2 control-label">Objet</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="inputTitle" placeholder="Objet de votre message" ng-model="formData.object" required />
+                    <span class="glyphicon glyphicon-ok form-control-feedback" ng-show=" formData.object.length > 0"></span>
+                    <p ng-show="formData.object.$invalid && !formData.object.$pristine" class="help-block">Merci de préciser l'objet de votre message.</p>
+                </div>
+            </div>
+            <div class="form-group has-feedback" ng-class="{ 'has-success' : formData.message.length > 0 }">
+                <label for="inputMessage" class="col-sm-2 control-label">Message</label>
+                <div class="col-sm-6">
+                    <textarea class="form-control" id="inputMessage" rows="3" placeholder="Votre message" ng-model="formData.message" required></textarea>
+                    <span class="glyphicon glyphicon-ok form-control-feedback" ng-show=" formData.message.length > 0"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-6">
+                    <button type="submit" class="btn btn-success" ng-disabled="formData.$invalid">Envoyer</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="container">
+    Bienvenue sur mon site.
+</div>

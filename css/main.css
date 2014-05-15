@@ -1,0 +1,29 @@
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+/*@font-size-base:          14px;*/
+h1 {
+  color: #539fd6;
+}
+.text-presentation {
+  /*    font-size: @font-size-base;*/
+  font-size: 16px;
+}
+.text-presentation p {
+  font-size: 16px;
+}
+.important {
+  color: #539fd6;
+}
+.chti-nav-spacing {
+  margin-left: 10%;
+}
+.chti-title {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.navbar-brand{
+    margin-left: 50px;
+    margin-right: 70px;
+}
