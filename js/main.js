@@ -7,13 +7,13 @@ var myApp = angular.module('myApp', ['ngRoute', 'ngAnimate'])
                     .when('/connaissances', {templateUrl: 'connaissances.html', controller: "ConnaissancesCtrl", name: "connaissances"})
                     .when('/contact', {templateUrl: 'contact.html', controller: "ContactCtrl", name: "contact"})
                     .when('/404', {templateUrl: '404.html'})
-            
+
                     .otherwise({redirectTo: '/'});
 
             // configure html5 to get links working on jsfiddle
             //$locationProvider.html5Mode(true);
             //$locationProvider.hashPrefix('!');
-            
+
         });
 
 //myApp.config(['$routeProvider',
@@ -46,15 +46,15 @@ myApp.controller('HeaderCtrl', ['$scope', 'BASE_CONSTS', function($scope, BASE_C
             }, {
                 name: "Contact",
                 url: "#contact",
-                icon : "envelope"
-            },{
+                icon: "envelope"
+            }, {
                 name: "Devis",
                 url: "#devis",
-                icon : "road"
+                icon: "road"
             }, {
                 name: "Temoignages",
                 url: "#temoignages",
-                icon : "star-empty"
+                icon: "star-empty"
             }];
     }]);
 
@@ -65,7 +65,7 @@ myApp.controller('MainCtrl', ['$scope', '$route', '$routeParams', '$location', '
         $scope.$routeParams = $routeParams;
         $scope.name = "MainCtrl";
         $scope.params = $routeParams;
-        
+
     }]);
 
 myApp.controller('ContactCtrl', ['$scope', '$route', '$routeParams', '$location', 'BASE_CONSTS', function($scope, $route, $routeParams, $location, BASE_CONSTS) {
@@ -74,7 +74,7 @@ myApp.controller('ContactCtrl', ['$scope', '$route', '$routeParams', '$location'
         $scope.params = $routeParams;
         debugger;
         $scope.formData = {};
-        
+
         $scope.processForm = function() {
             $http({
                 method: 'POST',
@@ -105,8 +105,8 @@ myApp.controller('DevisCtrl', ['$scope', '$route', '$routeParams', '$location', 
         $scope.$route = $route;
         $scope.$location = $location;
         $scope.$routeParams = $routeParams;
-        
-        
+
+
     }]);
 
 //
