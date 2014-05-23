@@ -5,7 +5,7 @@
             et je vous invite à parcourir ma page Continuous <s>integration</s> Development.</p>
         <p><a class="btn btn-primary btn-lg">Continuous Development &raquo;</a></p>
 
-        <form class="form-horizontal" role="form" name="formData" ng-submit="submitForm(formData.$valid)" novalidate>
+        <form class="form-horizontal" role="form" name="formData" ng-submit="processForm(formData.$valid)" novalidate>
             <div class="form-group has-feedback" ng-class="{ 'has-error' : formData.name.$invalid && !formData.name.$pristine, 'has-success' : formData.name.length > 0 }">
                 <label for="name" class="col-sm-2 control-label">Nom / Pseudonyme</label>
                 <div class="col-sm-5">

@@ -68,33 +68,42 @@ myApp.controller('MainCtrl', ['$scope', '$route', '$routeParams', '$location', '
 
     }]);
 
-myApp.controller('ContactCtrl', ['$scope', '$route', '$routeParams', '$location', 'BASE_CONSTS', function($scope, $route, $routeParams, $location, BASE_CONSTS) {
+myApp.controller('ContactCtrl', ['$scope', '$route', '$routeParams', '$location', 'BASE_CONSTS', '$http', function($scope, $route, $routeParams, $location, BASE_CONSTS,$http) {
         $scope.BASE_CONSTS = BASE_CONSTS;
         $scope.name = "ContactCtrl";
         $scope.params = $routeParams;
-        debugger;
-        $scope.formData = {};
 
+        $scope.formData = {};
+        
         $scope.processForm = function() {
+            if(!$scope.formData.$valid){
+                console.log("formulaire incorrect");
+                return;
+            }
+            debugger;
+            var data = $.param({
+                name : $scope.formData.name,
+                email : $scope.formData.email.$modelValue,
+                from : "<"+$scope.formData.email.$modelValue+">",
+                object : $scope.formData.object,
+                message : $scope.formData.message
+            });
             $http({
                 method: 'POST',
-                url: '/PHP/sendMail.php',
-                data: $.param($scope.formData), // pass in data as strings
+                url: 'PHP/sendMail.php',
+                data: data,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
             })
                     .success(function(data) {
                         console.log(data);
 
-                        if (!data.success) {
-                            // if not successful, bind errors to error variables
-                            $scope.errorName = data.errors.name;
-                            $scope.errorSuperhero = data.errors.superheroAlias;
-                        } else {
-                            // if successful, bind success message to message
-                            $scope.message = data.message;
-                        }
+                    })
+                    .error(function(data){
+                        console.log(data);       
                     });
         };
+        
+ 
 
     }]);
 
