@@ -96,5 +96,8 @@
                                                 s.parentNode.insertBefore(g, s)
                                             }(document, 'script'));
         </script>
+        <?php
+        
+        ?>
     </body>
 </html>

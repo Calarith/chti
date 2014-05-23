@@ -73,30 +73,39 @@ myApp.controller('ContactCtrl', ['$scope', '$route', '$routeParams', '$location'
         $scope.BASE_CONSTS = BASE_CONSTS;
         $scope.name = "ContactCtrl";
         $scope.params = $routeParams;
-        debugger;
+
         $scope.formData = {};
         
         $scope.processForm = function() {
+            if(!$scope.formData.$valid){
+                console.log("formulaire incorrect");
+                return;
+            }
             debugger;
+            var data = $.param({
+                name : $scope.formData.name,
+                email : $scope.formData.email.$modelValue,
+                from : "<"+$scope.formData.email.$modelValue+">",
+                object : $scope.formData.object,
+                message : $scope.formData.message
+            });
             $http({
                 method: 'POST',
                 url: 'PHP/sendMail.php',
-                data: $scope.formData, // pass in data as strings
+                data: data,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
             })
                     .success(function(data) {
                         debugger;
                         console.log(data);
 
-                        
-                    }).error(function(data) {
-                        debugger;
-                        console.log(data);
-
-                        
                     })
-                            
+                    .error(function(data){
+                        console.log(data);       
+                    });
         };
+        
+ 
 
     }]);
 
