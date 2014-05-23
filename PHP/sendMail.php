@@ -46,7 +46,7 @@
 //        }
 
         // Set the recipient email address.
-        // Adresse de réception du message
+        // Adresse (client) de réception du message
         $recipient = "cedric.steck@gmail.com";
         
         var_dump($_SERVER);
@@ -61,13 +61,13 @@
 
         // Build the email headers.
         $email_headers = "From: ".$_POST["name"]." <". $_POST["email"] .">";
-        $headers = 'From: webadmin-chti@gmail.com' . "\r\n". 
+        $headers = 'From: Formulaire de Contact <webadmin-chti@gmail.com>' . "\r\n". 
         'Reply-To: ' . $_POST["email"]. "\r\n" . 
         'X-Mailer: PHP/' . phpversion();
 
         // Send the email.
         //if (mail($recipient, $subject, $email_content, $email_headers)) {
-        if (mail($recipient, $email_content, $email_content, $headers)) {
+        if (mail($recipient, $subject, $email_content, $headers)) {
             // Set a 200 (okay) response code.
             http_response_code(200);
             echo "Merci! Votre message vient d'être envoyé.";
