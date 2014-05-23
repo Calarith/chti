@@ -1,25 +1,26 @@
 <div class="jumbotron">
     <div class="container">
-        <h1>Contact</h1>
-        <p>Pour toute demande ou question, merci d'utiliser ce formulaire de contact<br/>
+        <h1>Devis</h1>
+        <p>Pour toute demande de devis, merci d'utiliser ce formulaire de contact<br/>
+        Je répondrai dans les plus brefs délais</p>
             
-        <form class="form-horizontal" role="form" name="formData" ng-submit="processForm(formData.$valid)" novalidate>
+        <form class="form-horizontal" role="form" name="formData" ng-submit="submitForm(formData.$valid)" novalidate>
             <div class="form-group has-feedback" ng-class="{ 'has-error' : formData.name.$invalid && !formData.name.$pristine, 'has-success' : formData.name.length > 0 }">
                 <label for="name" class="col-sm-2 control-label">Nom </label>
                 <div class="col-sm-5">
                     <input id="name" class="form-control" type="text" placeholder="Nom de contact" ng-model="formData.name" required />
                     <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formData.name.length > 0"></span>
-                    <p ng-show="formData.name.$invalid && !formData.name.$pristine" class="help-block">Un nom est nécessaire.</p>
+                    <p ng-show="formData.name.$invalid && !formData.name.$pristine" class="help-block">Merci de renseigner votre nom.</p>
                 </div>
                 <!--                <label for="firstName" class="col-sm-1 control-label">Nom</label>
-                                <div class="col-xs-4">
+                                <div class="col-xs-4">²²
                                     <input id="lastName" class="form-control" type="text" id="lastName" ng-model="formData.lastName">
                                 </div>-->
             </div>
             <div class="form-group has-feedback" ng-class="{ 'has-error' : formData.email.$invalid && !formData.email.$pristine, 'has-success' : !formData.email.$invalid }">
                 <label for="inputEmail" class="col-sm-2 control-label">Email</label>
                 <div class="col-sm-6">
-                    <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Votre adresse de contact" ng-model="formData.from" required />
+                    <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Votre adresse mail" ng-model="formData.from" required />
                     <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="!formData.email.$invalid"></span>
                     <p ng-show="formData.email.$invalid && !formData.email.$pristine" class="help-block">Adresse email invalide.</p>
                 </div>
@@ -27,15 +28,29 @@
             <div class="form-group has-feedback" ng-class="{ 'has-success' : formData.object.length > 0 }">
                 <label for="inputTitle" class="col-sm-2 control-label">Objet</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" id="inputTitle" placeholder="Objet de votre message" ng-model="formData.object" required />
+                    <input type="text" class="form-control" id="inputTitle"  placeholder="DEVIS" value="DEVIS" ng-model="formData.object" disabled />
                     <span class="glyphicon glyphicon-ok form-control-feedback" ng-show=" formData.object.length > 0"></span>
                     <p ng-show="formData.object.$invalid && !formData.object.$pristine" class="help-block">Merci de préciser l'objet de votre message.</p>
                 </div>
             </div>
-            <div class="form-group has-feedback" ng-class="{ 'has-success' : formData.message.length > 0 }">
-                <label for="inputMessage" class="col-sm-2 control-label">Message</label>
+            <div class="form-group has-feedback" ng-class="{ 'has-success' : formData.trajet.length > 0 }">
+                <label for="inputTrajet" class="col-sm-2 control-label">Trajet</label>
                 <div class="col-sm-6">
-                    <textarea class="form-control" id="inputMessage" rows="3" placeholder="Votre message" ng-model="formData.message" required></textarea>
+                    <textarea class="form-control" id="inputTrajet" rows="3" placeholder="Ex : De Talence rue Maréchal de Gaulle à Bordeaux Place de la Victoire." ng-model="formData.trajet" required></textarea>
+                    <span class="glyphicon glyphicon-ok form-control-feedback" ng-show=" formData.trajet.length > 0"></span>
+                </div>
+            </div>
+            <div class="form-group has-feedback" ng-class="{ 'has-success' : formData.date.length > 0 }">
+                <label for="inputDate" class="col-sm-2 control-label">Date/jour(s)</label>
+                <div class="col-sm-6">
+                    <textarea class="form-control" id="inputDate" rows="3" placeholder="Ex : tous les mardi à 10h, le 9 juillet 2015" ng-model="formData.date" required></textarea>
+                    <span class="glyphicon glyphicon-ok form-control-feedback" ng-show=" formData.date.length > 0"></span>
+                </div>
+            </div>
+            <div class="form-group has-feedback" >
+                <label for="inputMessage" class="col-sm-2 control-label">Informations complémentaires</label>
+                <div class="col-sm-6">
+                    <textarea class="form-control" id="inputMessage" rows="3" placeholder="Message" ng-model="formData.message" ></textarea>
                     <span class="glyphicon glyphicon-ok form-control-feedback" ng-show=" formData.message.length > 0"></span>
                 </div>
             </div>

@@ -7,6 +7,7 @@ var myApp = angular.module('myApp', ['ngRoute', 'ngAnimate'])
                     .when('/connaissances', {templateUrl: 'connaissances.html', controller: "ConnaissancesCtrl", name: "connaissances"})
                     .when('/contact', {templateUrl: 'contact.html', controller: "ContactCtrl", name: "contact"})
                     .when('/404', {templateUrl: '404.html'})
+                    .when('/devis', {templateUrl: 'devis.html', controller: "DevisCtrl", name: "devis"})
 
                     .otherwise({redirectTo: '/'});
 
@@ -68,32 +69,33 @@ myApp.controller('MainCtrl', ['$scope', '$route', '$routeParams', '$location', '
 
     }]);
 
-myApp.controller('ContactCtrl', ['$scope', '$route', '$routeParams', '$location', 'BASE_CONSTS', function($scope, $route, $routeParams, $location, BASE_CONSTS) {
+myApp.controller('ContactCtrl', ['$scope', '$route', '$routeParams', '$location', 'BASE_CONSTS' ,'$http', function($scope, $route, $routeParams, $location, BASE_CONSTS, $http) {
         $scope.BASE_CONSTS = BASE_CONSTS;
         $scope.name = "ContactCtrl";
         $scope.params = $routeParams;
         debugger;
         $scope.formData = {};
-
+        
         $scope.processForm = function() {
+            debugger;
             $http({
                 method: 'POST',
-                url: '/PHP/sendMail.php',
-                data: $.param($scope.formData), // pass in data as strings
+                url: 'PHP/sendMail.php',
+                data: $scope.formData, // pass in data as strings
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
             })
                     .success(function(data) {
+                        debugger;
                         console.log(data);
 
-                        if (!data.success) {
-                            // if not successful, bind errors to error variables
-                            $scope.errorName = data.errors.name;
-                            $scope.errorSuperhero = data.errors.superheroAlias;
-                        } else {
-                            // if successful, bind success message to message
-                            $scope.message = data.message;
-                        }
-                    });
+                        
+                    }).error(function(data) {
+                        debugger;
+                        console.log(data);
+
+                        
+                    })
+                            
         };
 
     }]);
@@ -105,6 +107,7 @@ myApp.controller('DevisCtrl', ['$scope', '$route', '$routeParams', '$location', 
         $scope.$route = $route;
         $scope.$location = $location;
         $scope.$routeParams = $routeParams;
+        $scope.formData = {};
 
 
     }]);
