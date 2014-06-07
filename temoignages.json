@@ -1,0 +1,30 @@
+[
+    {
+        "date": "12/05/2014",
+        "message": "Une personne compétence et fiable en tout points de vue.",
+        "initiale": "Alexiel J.",
+        "validate": true
+    },
+    {
+        "date": "05/05/2014",
+        "message": "Très pro, je le recommande !",
+        "initiale": "Cedric S.",
+        "validate": true
+    },
+    {
+        "date": "22/04/2014",
+        "message": "A l'heure et très amicale",
+        "initiale": "Cecille D.",
+        "validate": true
+    },
+    {
+        "date": "22/04/2014",
+        "message": "Connait de bon raccourcie, pratique et efficace.",
+        "initiale": "Anthoine D.",
+        "validate": false    },
+    {
+        "date": "12/05/2014",
+        "message": "Cher pour la prestation",
+        "initiale": "Félix J.",
+        "validate": false    }
+]

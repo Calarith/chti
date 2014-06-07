@@ -13,17 +13,16 @@
             document.write('<base href="' + document.location + '" />');
         </script>
 
-<!--        <link rel="stylesheet" href="css/bootstrap.min.css">-->
-        <link rel="stylesheet" href="css/boostrap-superhero-theme.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme-curstom.css">
         <style>
             body {
                 padding-top: 50px;
                 padding-bottom: 20px;
             }
         </style>
-        
+                
         <link rel="stylesheet" href="css/main.css">
-        <link href='http://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
         <script src="js/vendor/angular/angular.min.js"></script>
         <script src="js/vendor/angular/angular-resource.js"></script>
         <script src="js/vendor/angular/angular-route.min.js"></script>

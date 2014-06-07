@@ -5,6 +5,12 @@
 h1 {
   color: #539fd6;
 }
+.jumbotron {
+  padding-top: 10px;
+}
+.img-thumbnail {
+  background-color: #FFFFFF;
+}
 .text-presentation {
   /*    font-size: @font-size-base;*/
   font-size: 16px;
