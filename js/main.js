@@ -8,6 +8,7 @@ var myApp = angular.module('myApp', ['ngRoute', 'ngAnimate', 'jaydata'])
                     .when('/contact', {templateUrl: 'contact.html', controller: "ContactCtrl", name: "contact"})
                     .when('/404', {templateUrl: '404.html'})
                     .when('/devis', {templateUrl: 'devis.html', controller: "DevisCtrl", name: "devis"})
+                    .when('/temoignages', {templateUrl: 'temoignages.html', controller: "TemoignagesCtrl", name: "temoignages"})
 
                     .otherwise({redirectTo: '/'});
 
@@ -121,6 +122,77 @@ myApp.controller('DevisCtrl', ['$scope', '$route', '$routeParams', '$location', 
 
     }]);
 
+myApp.controller('TemoignagesCtrl', ['$scope', 'BASE_CONSTS', function($scope, BASE_CONSTS) {
+        $scope.BASE_CONSTS = BASE_CONSTS;
+        $scope.name = "TemoignagesCtrl";
+        
+        $scope.temoignages = [];
+        
+        $scope.getTemoignages = function(){
+            
+            $scope.temoignages = [
+                {
+                    "date": "12/05/2014",
+                    "message": "Une personne compétence et fiable en tout points de vue.",
+                    "initiale": "Alexiel J TEsEEEST.",
+                    "validate": true
+                },
+                {
+                    "date": "05/05/2014",
+                    "message": "Très pro, je le recommande !",
+                    "initiale": "Cedric S.",
+                    "validate": true
+                },
+                {
+                    "date": "22/04/2014",
+                    "message": "A l'heure et très amicale",
+                    "initiale": "Cecille D.",
+                    "validate": true
+                },
+                {
+                    "date": "22/04/2014",
+                    "message": "Connait de bon raccourcie, pratique et efficace.",
+                    "initiale": "Anthoine D.",
+                    "validate": true    },
+                {
+                    "date": "12/05/2014",
+                    "message": "Cher pour la prestation",
+                    "initiale": "Félix J.",
+                    "validate": false    },
+                {
+                    "date": "12/05/2014",
+                    "message": "Une personne compétence et fiable en tout points de vue.",
+                    "initiale": "Alexiel J TEsEEEST.",
+                    "validate": true
+                },
+                {
+                    "date": "05/05/2014",
+                    "message": "Très pro, je le recommande !",
+                    "initiale": "Cedric S.",
+                    "validate": true
+                },
+                {
+                    "date": "22/04/2014",
+                    "message": "A l'heure et très amicale",
+                    "initiale": "Cecille D.",
+                    "validate": true
+                },
+                {
+                    "date": "22/04/2014",
+                    "message": "Connait de bon raccourcie, pratique et efficace.",
+                    "initiale": "Anthoine D.",
+                    "validate": false    },
+                {
+                    "date": "12/05/2014",
+                    "message": "Cher pour la prestation",
+                    "initiale": "Félix J.",
+                    "validate": false    }
+            ];
+        };
+        
+              
+        $scope.getTemoignages();
+    }]);
 //
 //myApp.controller('ConnaissancesCtrl', ['$scope', '$route', '$routeParams', '$location', 'BASE_CONSTS', '$http', function($scope, $route, $routeParams, $location, BASE_CONSTS, $http) {
 //        $scope.BASE_CONSTS = BASE_CONSTS;
