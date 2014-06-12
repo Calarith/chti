@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Lun 09 Juin 2014 à 11:49
+-- Généré le: Jeu 12 Juin 2014 à 12:54
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.16
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Base de données: `chti-transport`
 --
-CREATE DATABASE IF NOT EXISTS `chti-transport` DEFAULT CHARACTER SET latin1 COLLATE latin1_general_cs;
+CREATE DATABASE IF NOT EXISTS `chti-transport` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `chti-transport`;
 
 -- --------------------------------------------------------
@@ -30,17 +30,17 @@ USE `chti-transport`;
 
 CREATE TABLE IF NOT EXISTS `circuit` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `libelle` varchar(64) COLLATE latin1_general_cs NOT NULL,
-  `depart_adresse` varchar(128) COLLATE latin1_general_cs NOT NULL,
-  `depart_ville` varchar(64) COLLATE latin1_general_cs NOT NULL,
-  `depart_cp` varchar(6) COLLATE latin1_general_cs NOT NULL,
-  `arrivee_adresse` varchar(128) COLLATE latin1_general_cs NOT NULL,
-  `arrivee_ville` varchar(64) COLLATE latin1_general_cs NOT NULL,
-  `arrivee_cp` varchar(6) COLLATE latin1_general_cs NOT NULL,
+  `libelle` varchar(64) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
+  `depart_adresse` varchar(128) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
+  `depart_ville` varchar(64) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
+  `depart_cp` varchar(6) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
+  `arrivee_adresse` varchar(128) NOT NULL,
+  `arrivee_ville` varchar(64) NOT NULL,
+  `arrivee_cp` varchar(6) NOT NULL,
   `date_creation` date NOT NULL,
   `data` blob NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_cs AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -96,6 +96,29 @@ CREATE TABLE IF NOT EXISTS `planning` (
   `data` blob NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_cs AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `temoignage`
+--
+
+CREATE TABLE IF NOT EXISTS `temoignage` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(64) NOT NULL,
+  `prenom` varchar(64) NOT NULL,
+  `message` text NOT NULL,
+  `date` date NOT NULL,
+  `valide` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `temoignage`
+--
+
+INSERT INTO `temoignage` (`id`, `nom`, `prenom`, `message`, `date`, `valide`) VALUES
+(1, 'péchaud-rivière', 'pierre', 'c''ets trop cool , ;P $*ù$', '2014-06-12', 0);
 
 -- --------------------------------------------------------
 
