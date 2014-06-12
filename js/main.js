@@ -122,14 +122,14 @@ myApp.controller('DevisCtrl', ['$scope', '$route', '$routeParams', '$location', 
 
     }]);
 
-myApp.controller('TemoignagesCtrl', ['$scope', 'BASE_CONSTS', function($scope, BASE_CONSTS) {
+myApp.controller('TemoignagesCtrl', ['$scope','$location', '$anchorScroll', 'BASE_CONSTS', function($scope, $location, $anchorScroll, BASE_CONSTS) {
         $scope.BASE_CONSTS = BASE_CONSTS;
         $scope.name = "TemoignagesCtrl";
         
         $scope.temoignages = [];
         
         $scope.getTemoignages = function(){
-            
+            //TODO : BDD retourne que les validate = true
             $scope.temoignages = [
                 {
                     "date": "12/05/2014",
@@ -192,6 +192,13 @@ myApp.controller('TemoignagesCtrl', ['$scope', 'BASE_CONSTS', function($scope, B
         
               
         $scope.getTemoignages();
+        
+        $scope.scrollToAddNew = function(id) {
+            debugger;
+            $location.hash(id);
+            //console.log($location.hash());
+            $anchorScroll();
+        };
     }]);
 //
 //myApp.controller('ConnaissancesCtrl', ['$scope', '$route', '$routeParams', '$location', 'BASE_CONSTS', '$http', function($scope, $route, $routeParams, $location, BASE_CONSTS, $http) {
