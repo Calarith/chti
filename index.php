@@ -28,6 +28,8 @@
         <script src="js/vendor/angular/angular-route.min.js"></script>
         <script src="js/vendor/angular/angular-animate.min.js"></script>
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        <script src="js/vendor/jaydata/jaydata.js"></script>
+        <script src="js/vendor/jaydata/angular.js"></script>
     </head>
     <body ng-controller="MainCtrl">
         <div class="container">

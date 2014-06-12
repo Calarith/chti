@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute', 'ngAnimate'])
+var myApp = angular.module('myApp', ['ngRoute', 'ngAnimate', 'jaydata'])
         .config(function($routeProvider, $locationProvider) {
             $routeProvider
                     .when('/accueil', {templateUrl: 'accueil.html', controller: "MainCtrl"})
