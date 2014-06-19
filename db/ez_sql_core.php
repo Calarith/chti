@@ -1,5 +1,5 @@
 <?php
-
+header("Content-Type: charset=utf-8");
 	/**********************************************************************
 	*  Author: Justin Vincent (jv@vip.ie)
 	*  Web...: http://justinvincent.com

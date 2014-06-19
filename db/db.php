@@ -6,9 +6,9 @@
  * @uses ezSQL MySQL
  */
 /** edit your configuration */
-$dbuser = 'db_user';
-$dbname = 'db_name';
-$dbpassword = 'db_password';
+$dbuser = 'root';
+$dbname = 'chti-transport';
+$dbpassword = '';
 $dbhost = 'localhost';
 
 /** Stop editing from here, else you know what you are doing ;) */

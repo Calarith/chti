@@ -23,13 +23,19 @@
         </style>
                 
         <link rel="stylesheet" href="css/main.css">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
         <script src="js/vendor/angular/angular.min.js"></script>
         <script src="js/vendor/angular/angular-resource.js"></script>
         <script src="js/vendor/angular/angular-route.min.js"></script>
         <script src="js/vendor/angular/angular-animate.min.js"></script>
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        <script src="http://include.jaydata.org/datajs-1.0.3.js"></script>
         <script src="js/vendor/jaydata/jaydata.js"></script>
         <script src="js/vendor/jaydata/angular.js"></script>
+<!--        <script src="js/vendor/jaydata/deferred.min.js"></script>-->
+        <script src="js/vendor/jaydata/oDataProvider.min.js"></script>
+        
+<!--        <script src="js/vendor/jaydata/qDeferred.min.js"></script>-->
     </head>
     <body ng-controller="MainCtrl">
         <div class="container">
@@ -82,7 +88,7 @@
             </footer>
         </div>
         
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+       
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
 
         <script src="js/vendor/bootstrap.min.js"></script>
