@@ -41,3 +41,46 @@
   padding: 0px 0px;
   margin: 0px;
 }
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+/*@font-size-base:          14px;*/
+/*h1{
+    color:  @color-important;
+}*/
+.jumbotron {
+  padding-top: 10px;
+}
+.img-thumbnail {
+  background-color: #FFFFFF;
+}
+.text-presentation {
+  /*    font-size: @font-size-base;*/
+  font-size: 16px;
+}
+.text-presentation p {
+  font-size: 16px;
+}
+.important {
+  color: #ec6645;
+}
+.chti-nav-spacing {
+  margin-left: 10%;
+}
+.chti-title {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+.chti-div-limite {
+  max-width: 350px;
+}
+.chti-div-temoignage {
+  font-style: italic;
+  font-size: 12px;
+  text-align: left;
+}
+.chti-div-temoignage blockquote p {
+  font-size: 13.5px;
+  padding: 0px 0px;
+  margin: 0px;
+}
