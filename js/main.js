@@ -204,12 +204,23 @@ myApp.controller('TemoignagesCtrl', ['$scope','$location', '$anchorScroll','$htt
         };
         
               
-        // CALA : Doublon non ????? avec au dessus(pas $http mais juste au dessus)
+       
         $scope.getTemoignages();
         
-        // CALA : je dois faire quoi la ? le script de verification ? ou ca se fait sur la page de formulaire ?
+        // CALA : je dois faire quoi la ?
         $scope.addTemoignage = function(){
-            add_Temoignage($scope.formdata.name, $scope.formdata.forname, $scope.formadata.message);
+            $http({
+                url : 'PHP/php-controller.php',
+                method : "POST",
+                data : JSON.stringify({action : "addTemoignage", nom : $scope.formData.name, prenom : $scope.formData.forname, message : $scope.formData.message}),
+                headers : {'Content-Type' : 'application/json'}
+              })
+                    .success(function(data) {
+                        console.log(data);
+                    })
+                    .error(function(data){
+                        console.log(data);       
+                    });  
             
         };
         

@@ -8,7 +8,11 @@ if(isset($request_var->action)){
         $DBtemoignage = new itg_temoignage();
         $temoignages = $DBtemoignage->get_allTemoignages();
         print result($temoignages);
-    }else{
+    } elseif ($request_var->action == "addTemoignage") {
+        $DBtemoignage = new itg_temoignage();
+        $temoignages = $DBtemoignage->add_Temoignage($nom, $prenom, $message);
+        print result($temoignages);
+    }  else{
         header('HTTP/1.1 500 Internal Server');
         header('Content-Type: application/json; charset=UTF-8');
         die(json_encode(array('message' => 'ERROR : bad request', 'code' => 1337)));

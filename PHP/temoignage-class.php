@@ -64,12 +64,76 @@ class itg_temoignage {
      */
     public function get_allTemoignages() {
         global $db;
-        $resultObj;
         $result = $db->get_results("SELECT * FROM `temoignage` ORDER BY date");
         return $result;
        
     }
+    
+    
+    // TODO : ajouter supprimer modifier valider/invalider
+    
+     /**
+     * Ajoute témoignage. 
+     * Requiert un nom, prénom et un message 
+     * 
+     */
+    
+    
+    public function add_Temoignage($nom, $prenom, $message) {
+        global $db;
+        $result = $db->query("INSERT INTO temoignage (nom, prenom, message, date, valide) VALUES ('".$nom."', '".$prenom."', '".$message."', now(), 0);");
+        return $result;
+        
+    }
+    
+    /**
+     * supprime un témoignage. 
+     * Requiert un id
+     * 
+     */
+    
+    
+    public function del_Temoignage($id) {
+        global $db;
+        $result = $db->query("DELETE from temoignage WHERE id=".$id.";");
+        return $result;
+        
+    }
+    
+    /**
+     * modifie un témoignage. 
+     * Requiert l'id du temoignage a modifier, et nouveaux nom prénom message 
+     * 
+     */
+    
+    
+    public function chg_Temoignage($id, $nom, $prenom, $message) {
+        global $db;
+        $result = $db->query("UPDATE temoignage SET nom = '$nom', prenom = '$prenom', message = '$message' WHERE id = '$id' ;");
+        return $result;
+        
+    }
+    
+    /**
+     * valide un témoignage. 
+     * Requiert l'id du temoignage a valider. 
+     * 
+     */
+    
+    
+    public function val_Temoignage($id, $val) {
+        global $db;
+        $result = $db->query("UPDATE temoignage SET valide = '$val' WHERE id = '$id' ;");
+        return $result;
+        
+    }
+    
+    
 
+    
+    
+    
+    
     /**
      * Sample function to return the email of currently logged in admin user
      * @global ezSQL_mysql $db
@@ -79,10 +143,10 @@ class itg_temoignage {
         $username = $_SESSION['admin_login'];
         global $db;
         $info = $db->get_row("SELECT `email` FROM `user` WHERE `username` = '" . $db->escape($username) . "'");
-        if(is_object($info))
-            return $info->email;
-        else
-            return '';
+        if(is_object($info)){
+        return $info->email;}
+        else{
+        return '';}
     }
 
     /**
