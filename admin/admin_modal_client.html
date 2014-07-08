@@ -1,0 +1,68 @@
+    <div class="container-fluid" data-ng-init="init()">
+        <h1>Ajouter / Modifier un client</h1>
+        <p>Ajouter des informations ou modifiers des éléments.<br/>  
+        <form class="form-horizontal" role="form" ng-model="formData" name="formData" id="formData_id" ng-submit="processForm(formData)" novalidate>
+            <input id="id" type="hidden" ng-model="formData.id" />
+            <div class="form-group has-feedback" ng-class="{ 'has-error' : formData.name.$invalid && !formData.nom.$pristine, 'has-success' : formData.nom.length > 0 }">
+                <label for="nom" class="col-sm-3 control-label">Nom </label>
+                <div class="col-sm-6">
+                    <input id="nom" class="form-control" type="text" placeholder="Nom ..." ng-model="formData.nom" ng-value="nom" required />
+                    <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formData.nom.length > 0"></span>
+                    <p ng-show="formData.nom.$invalid && !formData.nom.$pristine" class="help-block">Un nom est nécessaire.</p>
+                </div>
+                <!--                <label for="firstName" class="col-sm-1 control-label">Nom</label>
+                                <div class="col-xs-4">
+                                    <input id="lastName" class="form-control" type="text" id="lastName" ng-model="formData.lastName">
+                                </div>-->
+            </div>
+            <div class="form-group has-feedback" ng-class="{ 'has-error' : formData.prenom.$invalid && !formData.prenom.$pristine, 'has-success' : formData.prenom.length > 0 }">
+                <label for="prenom" class="col-sm-3 control-label">Prénom </label>
+                <div class="col-sm-6">
+                    <input id="prenom" class="form-control" type="text" placeholder="Prénom ..." ng-model="formData.prenom" required />
+                    <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formData.prenom.length > 0"></span>
+                    <p ng-show="formData.prenom.$invalid && !formData.prenom.$pristine" class="help-block">Un prénom est nécessaire.</p>
+                </div>
+            </div>
+            <div class="form-group has-feedback" ng-class="{ 'has-error' : (formData.telephone.$invalid && !formData.telephone.$pristine) || (!formData.telephone.$pristine && formData.telephone.length < 10) || checkIsNaN(formData.telephone), 'has-success' : formData.telephone.length == 10 && !checkIsNaN(formData.telephone) }">
+                <label for="telephone" class="col-sm-3 control-label">Téléphone </label>
+                <div class="col-sm-4">
+                    <input id="telephone" class="form-control" type="tel" placeholder="05xxxxxxxx" ng-model="formData.telephone" required maxlength="10" pattern="[0][0-9]{9}"/>
+                    <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formData.telephone.length == 10 && !checkIsNaN(formData.telephone)"></span>
+                    <p ng-show="formData.telephone.$invalid && !formData.telephone.$pristine" class="help-block">Un téléphone est nécessaire.</p>
+                    <p ng-show="checkIsNaN(formData.telephone)" class="help-block">Le numéro de téléphone doit être numérique.</p>
+                </div>
+            </div>
+             <div class="form-group has-feedback" ng-class="{ 'has-error' : formData.adresse.$invalid && !formData.adresse.$pristine, 'has-success' : formData.adresse.length > 0 }">
+                <label for="adresse" class="col-sm-3 control-label">Adresse </label>
+                <div class="col-sm-7">
+                    <input id="adresse" class="form-control" type="text" placeholder="2 rue de la Cardinole ..." ng-model="formData.adresse" required />
+                    <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formData.adresse.length > 0"></span>
+                    <p ng-show="formData.adresse.$invalid && !formData.adresse.$pristine" class="help-block">Une adresse est nécessaire.</p>
+                </div>
+            </div>
+            <div class="form-group has-feedback" ng-class="{ 'has-success' : formData.ville.length > 0 }">
+                <label for="ville" class="col-sm-3 control-label">Ville</label>
+                <div class="col-sm-6">
+                    <input class="form-control" type="text" id="ville" rows="3" placeholder="Gradignan ..." ng-model="formData.ville" required/>
+                    <span class="glyphicon glyphicon-ok form-control-feedback" ng-show=" formData.ville.length > 0"></span>
+                    <p ng-show="formData.ville.$invalid && !formData.ville.$pristine" class="help-block">Une ville est nécessaire.</p>
+                </div>
+            </div>
+            <div class="form-group has-feedback" ng-class="{ 'has-success' : formData.cp.length >= 5 ,'has-error' : (formData.cp.$invalid && !formData.cp.$pristine) || (!formData.cp.$pristine && formData.cp.length < 5) || checkIsNaN(formData.cp)}">
+                <label for="cp" class="col-sm-3 control-label">Code Postal</label>
+                <div class="col-sm-3">
+                    <input class="form-control" type="text" id="cp" rows="3" placeholder="33170 ..." ng-model="formData.cp" required maxlength="5"/>
+                    <span class="glyphicon glyphicon-ok form-control-feedback" ng-show=" formData.cp.length == 5 && !checkIsNaN(formData.cp)"></span>
+                    <p ng-show="formData.cp.$invalid && !formData.cp.$pristine" class="help-block">Un code postal est nécessaire.</p>
+                    <p ng-show="checkIsNaN(formData.cp)" class="help-block">Le code postal doit être numérique.</p>
+                </div>
+            </div>
+            <div class="form-group modal-footer">
+                <div class="col-sm-offset-2 col-sm-6">
+                    <button type="submit" class="btn btn-success" ng-disabled="formData.$invalid || checkIsNaN(formData.telephone) || checkIsNaN(formData.cp)" ng-show="action=='addNewClient'">Envoyer</button>
+                    <button type="submit" class="btn btn-success" ng-disabled="formData.$invalid || formData.$pristine || checkIsNaN(formData.telephone) || checkIsNaN(formData.cp) " ng-show="action=='updateClient'">Mettre à jour</button>
+                    <button class="btn btn-warning" ng-click="cancel()">Annuler</button>
+                </div>
+            </div>
+        </form>
+    </div>

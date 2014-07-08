@@ -1,5 +1,6 @@
 <?php
 /** Include the database file */
+header('Content-Type: text/html; charset=utf-8');
 include_once '../db/db.php';
 /**
  * The main class of login
@@ -66,7 +67,7 @@ class itg_admin {
         global $db;
         $info = $db->get_row("SELECT `nicename` FROM `user` WHERE `username` = '" . $db->escape($username) . "'");
         if(is_object($info))
-            return $info->nicename;
+            return utf8_encode($info->nicename);
         else
             return '';
     }
@@ -132,7 +133,7 @@ class itg_admin {
 
         //get the username and password
         $username = $this->post['username'];
-        $password = md5(sha1($this->post['password']));
+        $password = md5($this->post['password']);
 
         //check the database for username
         if($this->_check_db($username, $password)) {
@@ -159,9 +160,7 @@ class itg_admin {
 
         die();
     }
-
-
-
+        
     /**
      * Check the database for login user
      * Get the password for the user
@@ -175,7 +174,7 @@ class itg_admin {
         $user_row = $db->get_row("SELECT * FROM `user` WHERE `username`='" . $db->escape($username) . "'");
 
         //general return
-        if(is_object($user_row) && md5($user_row->password) == $password)
+        if(is_object($user_row) && $user_row->password == $password)
             return true;
         else
             return false;

@@ -1,0 +1,114 @@
+<div class="jumbotron">
+    <div class="container">
+        <div class="col-md-6 chti-admin-list" ng-controller="AdminClientsCtrl">
+            <h2>Clients</h2>
+            <accordion>
+                <accordion-group is-open="status.open">
+                    <accordion-heading>
+                        Vous avez {{clients.length}} client(s) <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    Rechercher : <input type="search" ng-model="q" placeholder="rechercher... " />
+                    <button type="button" class="btn btn-primary btn-list-xs pull-right" ng-click="addNewClient()">
+                                <span class="glyphicon glyphicon-plus"></span> Nouveau client</button>
+                    <ul class="chti-admin-clients-animate-container">
+                        <li class="animate-repeat chti-admin-client" ng-repeat="client in clients | filter:q">
+                            [{{client.id}}] {{client.nom}} {{client.prenom}} 
+                            <button type="button" class="btn btn-warning btn-list-xs pull-right" ng-click="dellClient(client)">
+                                <span class="glyphicon glyphicon-remove"></span></button>
+                            <button type="button" class="btn btn-default btn-list-xs pull-right" ng-click="updateClient(client)">
+                                <span class="glyphicon glyphicon-eye-open"></span> voir</button>
+                            
+                        </li>
+                    </ul>
+                </accordion-group>
+            </accordion>
+        </div>
+        <div class="col-md-6 chti-admin-list" ng-controller="AdminCircuitsCtrl">
+            <h2>Circuits</h2>
+            <accordion>
+                <accordion-group is-open="status.open">
+                    <accordion-heading>
+                        Vous avez {{circuits.length}} circuit(s) <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    Rechercher : <input type="search" ng-model="q" placeholder="rechercher... " />
+                    <button type="button" class="btn btn-primary btn-list-xs pull-right" >
+                                <span class="glyphicon glyphicon-plus"></span> Nouveau circuit</button>
+                    <ul class="chti-admin-clients-animate-container">
+                        <li class="animate-repeat chti-admin-client" ng-repeat="circuit in circuits | filter:q">
+                            [{{circuit.id}}] {{circuit.nom}} {{circuit.prenom}} 
+                            <button type="button" class="btn btn-default btn-list-xs pull-right">
+                                <span class="glyphicon glyphicon-eye-open"></span> voir</button>
+                        </li>
+                    </ul>
+                </accordion-group>
+            </accordion>
+        </div>
+    </div>
+    <div class="container">
+        <div class="col-md-6 chti-admin-list" ng-controller="AdminPlanningsCtrl">
+            <h2>Plannings</h2>
+            <accordion>
+                <accordion-group is-open="status.open">
+                    <accordion-heading>
+                        Vous avez {{circuits.length}} circuit(s) <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    Rechercher : <input type="search" ng-model="q" placeholder="rechercher... " />
+                    <ul class="chti-admin-clients-animate-container">
+                        <li class="animate-repeat chti-admin-client" ng-repeat="circuit in circuits | filter:q">
+                            [{{circuit.id}}] {{circuit.nom}} {{circuit.prenom}} 
+                            <button type="button" class="btn btn-default btn-list-xs pull-right">
+                                <span class="glyphicon glyphicon-eye-open"></span> voir</button>
+                        </li>
+                    </ul>
+                </accordion-group>
+                <accordion-group is-open="status.open">
+                    <accordion-heading>
+                        Vous avez {{circuits.length}} circuit(s) <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    Rechercher : <input type="search" ng-model="q" placeholder="rechercher... " />
+                    <ul class="chti-admin-clients-animate-container">
+                        <li class="animate-repeat chti-admin-client" ng-repeat="circuit in circuits | filter:q">
+                            [{{circuit.id}}] {{circuit.nom}} {{circuit.prenom}} 
+                            <button type="button" class="btn btn-default btn-list-xs pull-right">
+                                <span class="glyphicon glyphicon-eye-open"></span> voir</button>
+                        </li>
+                    </ul>
+                </accordion-group>
+            </accordion>
+        </div>
+        <div class="col-md-6 chti-admin-list" ng-controller="AdminPlanningsCtrl">
+            <h2>Factures</h2>
+            <accordion>
+                <accordion-group is-open="status.open">
+                    <accordion-heading>
+                        Vous avez {{circuits.length}} circuit(s) <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    Rechercher : <input type="search" ng-model="q" placeholder="rechercher... " />
+                    <ul class="chti-admin-clients-animate-container">
+                        <li class="animate-repeat chti-admin-client" ng-repeat="circuit in circuits | filter:q">
+                            [{{circuit.id}}] {{circuit.nom}} {{circuit.prenom}} 
+                            <button type="button" class="btn btn-default btn-list-xs pull-right">
+                                <span class="glyphicon glyphicon-eye-open"></span> voir</button>
+                        </li>
+                    </ul>
+                </accordion-group>
+                <accordion-group is-open="status.open">
+                    <accordion-heading>
+                        Vous avez {{circuits.length}} circuit(s) <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    Rechercher : <input type="search" ng-model="q" placeholder="rechercher... " />
+                    <ul class="chti-admin-clients-animate-container">
+                        <li class="animate-repeat chti-admin-client" ng-repeat="circuit in circuits | filter:q">
+                            [{{circuit.id}}] {{circuit.nom}} {{circuit.prenom}} 
+                            <button type="button" class="btn btn-default btn-list-xs pull-right">
+                                <span class="glyphicon glyphicon-eye-open"></span> voir</button>
+                        </li>
+                    </ul>
+                </accordion-group>
+            </accordion>
+        </div> 
+    </div>
+</div>
+<div class="container">
+    Administration powered by Pierre Péchaud-Rivière.
+</div>

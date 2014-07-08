@@ -6,23 +6,23 @@
     <body>
         <form action="login-action.php" method="post">
             <fieldset>
-                <legend>Enter Credential</legend>
+                <legend>Enter vos identifiants</legend>
                     <p>
-                        <label for="username">Username: </label>
+                        <label for="username">login: </label>
                         <input type="text" name="username" id="username" value="" />
                     </p>
                     <p>
-                        <label for="password">Password: </label>
+                        <label for="password">mot de passe: </label>
                         <input type="password" name="password" id="password" value="" />
                     </p>
                     <p>
                         <label for="remember">
-                            <input type="checkbox" name="remember" id="remember" value="1" /> Remember me
+                            <input type="checkbox" name="remember" id="remember" value="1" /> Se souvenir
                         </label>
                     </p>
             </fieldset>
             <p>
-                <input type="submit" value="Submit" /> <input type="reset" value="Reset" />
+                <input type="submit" value="Valider" /> <input type="reset" value="Reset" />
             </p>
         </form>
     </body>

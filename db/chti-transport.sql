@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Jeu 12 Juin 2014 à 12:54
+-- Généré le: Mar 08 Juillet 2014 à 17:17
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.16
 
@@ -30,15 +30,17 @@ USE `chti-transport`;
 
 CREATE TABLE IF NOT EXISTS `circuit` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `libelle` varchar(64) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
-  `depart_adresse` varchar(128) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
-  `depart_ville` varchar(64) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
-  `depart_cp` varchar(6) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
+  `libelle` varchar(64) NOT NULL,
+  `depart_adresse` varchar(128) NOT NULL,
+  `depart_ville` varchar(64) NOT NULL,
+  `depart_cp` varchar(6) NOT NULL,
   `arrivee_adresse` varchar(128) NOT NULL,
   `arrivee_ville` varchar(64) NOT NULL,
   `arrivee_cp` varchar(6) NOT NULL,
   `date_creation` date NOT NULL,
-  `data` blob NOT NULL,
+  `data` blob,
+  `updated_at` date DEFAULT NULL,
+  `created_at` date DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -50,12 +52,28 @@ CREATE TABLE IF NOT EXISTS `circuit` (
 
 CREATE TABLE IF NOT EXISTS `client` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(64) COLLATE latin1_general_cs NOT NULL,
-  `prénom` varchar(64) COLLATE latin1_general_cs DEFAULT NULL,
-  `téléphone` varchar(11) COLLATE latin1_general_cs NOT NULL,
-  `adresse` int(11) NOT NULL,
+  `nom` varchar(64) NOT NULL,
+  `prenom` varchar(64) DEFAULT NULL,
+  `telephone` varchar(11) NOT NULL,
+  `adresse` varchar(128) NOT NULL,
+  `ville` varchar(64) NOT NULL,
+  `cp` varchar(6) NOT NULL,
+  `updated_at` date DEFAULT NULL,
+  `created_at` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_cs AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+--
+-- Contenu de la table `client`
+--
+
+INSERT INTO `client` (`id`, `nom`, `prenom`, `telephone`, `adresse`, `ville`, `cp`, `updated_at`, `created_at`) VALUES
+(1, 'Péchaud-Rivière', 'Pierre', '05454454455', 'résidence Eurofac, tour 5, app 311', 'Gradignan', '33170', NULL, NULL),
+(2, 'Ronald', 'Mac Donald', '00005444545', '5 Avenue de la libération', 'Paris', '75000', NULL, NULL),
+(3, 'Dao', 'Etienne', '00005444545', '5 Avenue de la libération', 'Bordeaux', '33000', NULL, NULL),
+(5, 'sdfdsfds', 'fdsfsdfsdf', '5456546546', '456546546', '546456456', '456546', '2014-07-08', '2014-07-08'),
+(6, 'dsfsdfds', 'fdsfdsfsd', '5654645645', 'fdgdfgdfgdfgdf', 'gfdgfdgfdgfdg', '246546', '2014-07-08', '2014-07-08'),
+(7, 'sdfdsfdsfs', 'fdsfsdfsdfsdf', '5654645645', 'gfdgdfgfdgfd', 'fdgdfgdfgdf', '33154', '2014-07-08', '2014-07-08');
 
 -- --------------------------------------------------------
 
@@ -68,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `client_circuit` (
   `id_circuit` int(11) NOT NULL,
   PRIMARY KEY (`id_client`,`id_circuit`),
   KEY `id_circuit_exist` (`id_circuit`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_cs;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -82,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `facture` (
   `date` int(11) NOT NULL,
   `data` blob NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_cs AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -95,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `planning` (
   `mois` int(11) NOT NULL,
   `data` blob NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_cs AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -128,21 +146,21 @@ INSERT INTO `temoignage` (`id`, `nom`, `prenom`, `message`, `date`, `valide`) VA
 
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) COLLATE latin1_general_cs NOT NULL DEFAULT '',
-  `nicename` varchar(255) COLLATE latin1_general_cs NOT NULL DEFAULT '',
-  `email` varchar(255) COLLATE latin1_general_cs NOT NULL DEFAULT '',
-  `password` varchar(255) COLLATE latin1_general_cs NOT NULL DEFAULT '',
+  `username` varchar(50) NOT NULL DEFAULT '',
+  `nicename` varchar(255) NOT NULL DEFAULT '',
+  `email` varchar(255) NOT NULL DEFAULT '',
+  `password` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_n` (`username`),
   UNIQUE KEY `user_e` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_cs AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `user`
 --
 
 INSERT INTO `user` (`id`, `username`, `nicename`, `email`, `password`) VALUES
-(1, 'Calarith', 'Pierre Péchaud-Rivière', '', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684');
+(2, 'Calarith', 'Pierre Péchaud-Rivière', 'p.pechaudriviere@gmail.com', 'eb399bcaca686f8609137153307eecf1');
 
 --
 -- Contraintes pour les tables exportées

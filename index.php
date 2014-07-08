@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
+        <title>Ch'ti Transport</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <script>
@@ -84,6 +84,7 @@
             
         <div class="container">
             <footer>
+                <p><a ng-href="admin/"><span class="glyphicon glyphicon-"> </span> Administration</a></p>
                 <p>&copy; Pierre Péchaud-Rivière</p>
             </footer>
         </div>
