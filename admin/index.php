@@ -30,7 +30,10 @@ $admin->_authenticate();
                 
         <link rel="stylesheet" href="../css/main.css">
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script src="../js/vendor/angular-file-upload/angular-file-upload-shim.js"></script> 
         <script src="../js/vendor/angular/angular.min.js"></script>
+        <script src="../js/vendor/FileSaver.js"></script>
+        <script src="../js/vendor/angular-file-upload/angular-file-upload.min.js"></script> 
         <script src="../js/vendor/angular/angular-resource.js"></script>
         <script src="../js/vendor/angular/angular-route.min.js"></script>
         <script src="../js/vendor/angular/angular-animate.min.js"></script>

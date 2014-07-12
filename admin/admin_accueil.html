@@ -8,14 +8,14 @@
                         Vous avez {{clients.length}} client(s) <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
                     </accordion-heading>
                     Rechercher : <input type="search" ng-model="q" placeholder="rechercher... " />
-                    <button type="button" class="btn btn-primary btn-list-xs pull-right" ng-click="addNewClient()">
+                    <button type="button" class="btn btn-primary btn-list-xs pull-right" title="Créer un nouveau client" ng-click="addNewClient()">
                                 <span class="glyphicon glyphicon-plus"></span> Nouveau client</button>
                     <ul class="chti-admin-clients-animate-container">
                         <li class="animate-repeat chti-admin-client" ng-repeat="client in clients | filter:q">
                             [{{client.id}}] {{client.nom}} {{client.prenom}} 
-                            <button type="button" class="btn btn-warning btn-list-xs pull-right" ng-click="dellClient(client)">
+                            <button type="button" class="btn btn-warning btn-list-xs pull-right" title="Supprimer {{client.nom}} {{client.prenom}}" ng-click="dellClient(client)">
                                 <span class="glyphicon glyphicon-remove"></span></button>
-                            <button type="button" class="btn btn-default btn-list-xs pull-right" ng-click="updateClient(client)">
+                            <button type="button" class="btn btn-default btn-list-xs pull-right" title="Afficher {{client.nom}} {{client.prenom}}" ng-click="updateClient(client)">
                                 <span class="glyphicon glyphicon-eye-open"></span> voir</button>
                             
                         </li>
@@ -31,13 +31,17 @@
                         Vous avez {{circuits.length}} circuit(s) <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
                     </accordion-heading>
                     Rechercher : <input type="search" ng-model="q" placeholder="rechercher... " />
-                    <button type="button" class="btn btn-primary btn-list-xs pull-right" >
+                    <button type="button" class="btn btn-primary btn-list-xs pull-right" title="Créer un nouveau circuit" ng-click="addNewCircuit()">
                                 <span class="glyphicon glyphicon-plus"></span> Nouveau circuit</button>
                     <ul class="chti-admin-clients-animate-container">
                         <li class="animate-repeat chti-admin-client" ng-repeat="circuit in circuits | filter:q">
-                            [{{circuit.id}}] {{circuit.nom}} {{circuit.prenom}} 
-                            <button type="button" class="btn btn-default btn-list-xs pull-right">
+                            [{{circuit.id}}] {{circuit.libelle}}  
+                            <button type="button" class="btn btn-warning btn-list-xs pull-right" title="Supprimer {{circuit.libelle}}" ng-click="dellCircuit(circuit)">
+                                <span class="glyphicon glyphicon-remove"></span></button>
+                            <button type="button" class="btn btn-default btn-list-xs pull-right" title="Afficher {{circuit.libelle}}" ng-click="updateCircuit(circuit)">
                                 <span class="glyphicon glyphicon-eye-open"></span> voir</button>
+                            <button ng-show="circuit.data_filename" title="Télécharger {{circuit.data_filename}}" type="button" class="btn btn-default btn-list-xs pull-right" ng-click="downloadCircuit(circuit)">
+                                <span class="glyphicon glyphicon-download-alt"></span> </button>
                         </li>
                     </ul>
                 </accordion-group>
@@ -53,24 +57,17 @@
                         Vous avez {{circuits.length}} circuit(s) <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
                     </accordion-heading>
                     Rechercher : <input type="search" ng-model="q" placeholder="rechercher... " />
+                    <button type="button" class="btn btn-primary btn-list-xs pull-right" title="Créer un nouveau circuit" ng-click="addNewCircuit()">
+                                <span class="glyphicon glyphicon-plus"></span> Nouveau circuit</button>
                     <ul class="chti-admin-clients-animate-container">
                         <li class="animate-repeat chti-admin-client" ng-repeat="circuit in circuits | filter:q">
-                            [{{circuit.id}}] {{circuit.nom}} {{circuit.prenom}} 
-                            <button type="button" class="btn btn-default btn-list-xs pull-right">
+                            [{{circuit.id}}] {{circuit.libelle}}  
+                            <button type="button" class="btn btn-warning btn-list-xs pull-right" title="Supprimer {{circuit.libelle}}" ng-click="dellCircuit(circuit)">
+                                <span class="glyphicon glyphicon-remove"></span></button>
+                            <button type="button" class="btn btn-default btn-list-xs pull-right" title="Afficher {{circuit.libelle}}" ng-click="updateCircuit(circuit)">
                                 <span class="glyphicon glyphicon-eye-open"></span> voir</button>
-                        </li>
-                    </ul>
-                </accordion-group>
-                <accordion-group is-open="status.open">
-                    <accordion-heading>
-                        Vous avez {{circuits.length}} circuit(s) <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
-                    </accordion-heading>
-                    Rechercher : <input type="search" ng-model="q" placeholder="rechercher... " />
-                    <ul class="chti-admin-clients-animate-container">
-                        <li class="animate-repeat chti-admin-client" ng-repeat="circuit in circuits | filter:q">
-                            [{{circuit.id}}] {{circuit.nom}} {{circuit.prenom}} 
-                            <button type="button" class="btn btn-default btn-list-xs pull-right">
-                                <span class="glyphicon glyphicon-eye-open"></span> voir</button>
+                            <button ng-show="circuit.data_filename" title="Télécharger {{circuit.data_filename}}" type="button" class="btn btn-default btn-list-xs pull-right" ng-click="downloadCircuit(circuit)">
+                                <span class="glyphicon glyphicon-download-alt"></span> </button>
                         </li>
                     </ul>
                 </accordion-group>

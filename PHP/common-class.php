@@ -2,6 +2,7 @@
 header("Content-Type: charset=utf-8");
 /** Include the database file */
 include_once '../db/db.php';
+include_once '../PHP/config.php';
 /**
  * The main class of login
  * All the necesary system functions are prefixed with _
@@ -9,7 +10,7 @@ include_once '../db/db.php';
  * _authenticate - to be used in every file where admin restriction is to be inherited etc...
  * @author Swashata <swashata@intechgrity.com>
  */
-class itg_client {
+class itg_common {
 
     /**
      * Holds the script directory absolute path
@@ -28,6 +29,8 @@ class itg_client {
      * @var array
      */
     var $get = array();
+    
+    var $table = "";
 
     /**
      * The constructor function of admin class
@@ -35,7 +38,7 @@ class itg_client {
      * It is necessary to start the session before actually storing any value
      * to the super global $_SESSION variable
      */
-    public function __construct() {
+    public function __construct($_table) {
         session_start();
 
         //store the absolute script directory
@@ -50,21 +53,34 @@ class itg_client {
                 array_walk_recursive($this->post, array($this, 'stripslash_gpc'));
             }
         }
-
+        
         //initialize the get variable
         $this->get = $_GET;
+        $this->table = $_table;
+        $this->columns = $this->get_columns();
         //decode the url
         array_walk_recursive($this->get, array($this, 'urldecode'));
     }
+    
+    
 
     /**
      * Retourne tous les témoignages.
      * @global ezSQL_mysql $db
      * @return tab
      */
-    public function get_allClients() {
+    public function get_allEntities() {
         global $db;
-        $result = $db->get_results("SELECT * FROM `client`");
+        $query = "SELECT ";
+        $exclued_field = ['data'];
+        foreach ($this->columns as $key => $value){
+            if(!in_array($value->Field, $exclued_field)){
+                $query .= $value->Field.",";
+            }       
+        }
+        $query = trim($query, ",");
+        $query .= " FROM `".$this->table."`;";
+        $result = $db->get_results($query);
         return $result;
        
     }
@@ -79,10 +95,24 @@ class itg_client {
      */
     
     
-    public function add_Client($nom, $prenom, $telephone, $adresse, $ville, $cp) {
+    public function add_Entity($_param) {
         global $db;
-        $result = $db->query("INSERT INTO client (nom, prenom, telephone, adresse, ville, cp, updated_at, created_at) VALUES ('".$nom."', '".$prenom."', '".$telephone."', '".$adresse."','".$ville."','".$cp."', now(), now());");
-        return $result;
+        $query = "INSERT INTO `".$this->table."` (";
+        $values = " VALUES (";
+        foreach ($_param as $key => $value){
+//            if($key == "data"){
+//                $query .= $key . ", ";
+//                $values .= " LOAD_FILE('" . $value."'), ";
+//            }else{
+                $query .= $key . ",";
+                $values .= "'".$value."',";
+            //}
+            
+        }
+        $query .= "updated_at, created_at)";
+        $query .= $values."now(), now() );";
+        $result = $db->query($query);
+        return $result>0;
         
     }
     
@@ -93,9 +123,9 @@ class itg_client {
      */
     
     
-    public function del_Client($id) {
+    public function del_Entity($_param) {
         global $db;
-        $result = $db->query("DELETE from client WHERE id=".$id.";");
+        $result = $db->query("DELETE from `".$this->table."` WHERE id=".$_param->id.";");
         return $result;
         
     }
@@ -107,14 +137,43 @@ class itg_client {
      */
     
     
-    public function chg_Client($id, $nom, $prenom, $telephone, $adresse, $ville, $cp) {
+    public function chg_Entity($_param) {
         global $db;
-        $result = $db->query("UPDATE temoignage SET nom = '".$nom."', prenom = '".$prenom."', telephone = '".$telephone."', adresse = '".$adresse."', ville = '".$ville."',cp = '".$cp."',cp = 'now()'   WHERE id = '$id' ;");
+        $query = "UPDATE `".$this->table."` SET ";
+        foreach ($_param as $key => $value){
+            $query .= $key . "='".$value."',";
+        }
+        $query .= "updated_at = 'now()'";
+        $query .= " WHERE id = '$_param->id'";
+        $result = $db->query($query);
+//        $result = $db->query("UPDATE `".$this->table."` SET nom = '".$nom."', prenom = '".$prenom."', telephone = '".$telephone."', adresse = '".$adresse."', ville = '".$ville."',cp = '".$cp."',cp = 'now()'   WHERE id = '$id' ;");
+        return $result;
+        
+    } 
+    
+    public function download_DataEntity($_param) {
+        global $db;
+        $result = $db->get_row("SELECT data, data_filename, data_mimetype  FROM  `".$this->table."`  WHERE  id='".$_param->id."';");
         return $result;
         
     }
+    
+    public function download_DataFile($_param) {
+        global $db;
+        $result= $db->get_row("SELECT data_filename, data_mimetype, CONCAT('".TMP_DIR ."',data_filename) as TMP_PATH  FROM  `".$this->table."`  WHERE  id='".$_param->id."';");
+        $res = $db->get_row('SELECT data INTO DUMPFILE "'.$result->TMP_PATH.'" FROM `'.$this->table.'`  WHERE  id="'.$_param->id.'";');
+        return $result;
+        
+    }
+    
+    public function get_columns() {
+        global $db;
+        $result = $db->get_results("SHOW columns FROM `".$this->table."`;");
+        //$result->data = fbsql_read_blob($result->data);
+        return $result;
+       
+    }
    
-
     /**
      * stripslash gpc
      * Strip the slashes from a string added by the magic quote gpc thingy

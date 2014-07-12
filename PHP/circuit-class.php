@@ -9,7 +9,7 @@ include_once '../db/db.php';
  * _authenticate - to be used in every file where admin restriction is to be inherited etc...
  * @author Swashata <swashata@intechgrity.com>
  */
-class itg_client {
+class itg_circuit {
 
     /**
      * Holds the script directory absolute path
@@ -62,9 +62,9 @@ class itg_client {
      * @global ezSQL_mysql $db
      * @return tab
      */
-    public function get_allClients() {
+    public function get_allCircuits() {
         global $db;
-        $result = $db->get_results("SELECT * FROM `client`");
+        $result = $db->get_results("SELECT * FROM `circuits`");
         return $result;
        
     }
@@ -79,7 +79,7 @@ class itg_client {
      */
     
     
-    public function add_Client($nom, $prenom, $telephone, $adresse, $ville, $cp) {
+    public function add_Circuit($libelle, $prenom, $telephone, $adresse, $ville, $cp) {
         global $db;
         $result = $db->query("INSERT INTO client (nom, prenom, telephone, adresse, ville, cp, updated_at, created_at) VALUES ('".$nom."', '".$prenom."', '".$telephone."', '".$adresse."','".$ville."','".$cp."', now(), now());");
         return $result;
@@ -110,6 +110,13 @@ class itg_client {
     public function chg_Client($id, $nom, $prenom, $telephone, $adresse, $ville, $cp) {
         global $db;
         $result = $db->query("UPDATE temoignage SET nom = '".$nom."', prenom = '".$prenom."', telephone = '".$telephone."', adresse = '".$adresse."', ville = '".$ville."',cp = '".$cp."',cp = 'now()'   WHERE id = '$id' ;");
+        return $result;
+        
+    } 
+    
+    public function download_Data($param) {
+        global $db;
+        $result = $db->get_results("SELECT data FROM `circuit` WHERE `id` = '".$param->id."'");
         return $result;
         
     }

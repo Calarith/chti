@@ -54,3 +54,11 @@ function formulaire_merge(newForm, oldForm, array_miss) {
 }
 
 
+function setFile (element) {
+    var _scope = angular.element("#formData_id").scope();
+    _scope.$apply(function(){
+        _scope.formData.data = element.files[0];
+    });
+    
+};
+
