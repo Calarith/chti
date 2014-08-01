@@ -29,17 +29,12 @@
         <script src="js/vendor/angular/angular-route.min.js"></script>
         <script src="js/vendor/angular/angular-animate.min.js"></script>
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-        <script src="http://include.jaydata.org/datajs-1.0.3.js"></script>
-        <script src="js/vendor/jaydata/jaydata.js"></script>
-        <script src="js/vendor/jaydata/angular.js"></script>
-<!--        <script src="js/vendor/jaydata/deferred.min.js"></script>-->
-        <script src="js/vendor/jaydata/oDataProvider.min.js"></script>
         
 <!--        <script src="js/vendor/jaydata/qDeferred.min.js"></script>-->
     </head>
     <body ng-controller="MainCtrl">
-        <div class="container">
-                <img src="images/chti_logo_3.png" class="img-responsive"/>
+        <div style="margin-top:-20px;">
+            <img src="images/logos/Logo_RECTANGLE_transpBlc_mod2.png" class="img-responsive"/>   
         </div>
         <div class="navbar navbar-inverse navbar-top" ng-controller="HeaderCtrl" style="margin-bottom: 0px; ">
             <div class="container chti-nav-spacing">
@@ -96,6 +91,7 @@
 
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
+        <script src="js/vendor/ui-bootstrap-tpls-0.11.0.min.js"></script>
         <script>
                                             var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
                                             (function(d, t) {

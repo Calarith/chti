@@ -2,40 +2,49 @@
     
     <div class="container">
         <h1>Témoignages</h1>
-        <p>Il y a {{temoignages.length}} témoignages, ajoutez le votre ! </p>
+        <p>Ces personnes m'ont fait confiance, voici leurs témoignages...<br/>
+        Il y a {{temoignages.length}} témoignages, <a href="" ng-click="scrollToAddNew('prenom')">ajoutez le votre</a> ! </p>
 
         <div class="chti-div-temoignage" ng-repeat="temoignage in temoignages">
           <blockquote ><p>"{{temoignage.message}}"</p>
             <p><small>{{temoignage.initiale}}</small></p></blockquote> 
         </div>
 
-        <form class="form-horizontal" role="form" name="formData" ng-submit="processForm(formData.$valid)" novalidate>
-                <div class="form-group has-feedback" ng-class="{ 'has-error' : formData.name.$invalid && !formData.name.$pristine, 'has-success' : formData.name.length > 0 }">
-                    <label for="name" class="col-sm-2 control-label">Nom </label>
-                    <div class="col-sm-5">
-                        <input id="name" class="form-control" type="text" placeholder="Ex : Pierre P." ng-model="formData.name" required />
-                        <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formData.name.length > 0"></span>
-                        <p ng-show="formData.name.$invalid && !formData.name.$pristine" class="help-block">Un nom est nécessaire.</p>
-                    </div>
-                    <!--                <label for="firstName" class="col-sm-1 control-label">Nom</label>
-                                    <div class="col-xs-4">
-                                        <input id="lastName" class="form-control" type="text" id="lastName" ng-model="formData.lastName">
-                                    </div>-->
+        <form class="form-horizontal" role="form" name="formData" novalidate>
+            <div class="form-group has-feedback" ng-class="{ 'has-error' : formData.prenom.$invalid && !formData.prenom.$pristine, 'has-success' : formData.prenom.length > 0 }">
+                <label for="prenom" class="col-sm-2 control-label">Prénom </label>
+                <div class="col-sm-5">
+                    <input id="prenom" class="form-control" type="text" placeholder="Ex : Pierre..." ng-model="formData.prenom" required />
+                    <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formData.prenom.length > 0"></span>
+                    <p ng-show="formData.prenom.$invalid && !formData.prenom.$pristine" class="help-block">Un prenom est nécessaire.</p>
                 </div>
-
-                <div class="form-group has-feedback" ng-class="{ 'has-success' : formData.message.length > 0 }">
-                    <label for="inputMessage" class="col-sm-2 control-label">Message</label>
-                    <div class="col-sm-6">
-                        <textarea class="form-control" id="inputMessage" rows="3" placeholder="Votre message" ng-model="formData.message" required></textarea>
-                        <span class="glyphicon glyphicon-ok form-control-feedback" ng-show=" formData.message.length > 0"></span>
-                    </div>
+            </div>
+            <div class="form-group has-feedback" ng-class="{ 'has-error' : formData.nom.$invalid && !formData.nom.$pristine, 'has-success' : formData.nom.length > 0 }">
+                <label for="nom" class="col-sm-2 control-label">Nom </label>
+                <div class="col-sm-5">
+                    <input id="nom" class="form-control" type="text" placeholder="Ex : Fauganet..." ng-model="formData.nom" required />
+                    <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formData.nom.length > 0"></span>
+                    <span class="small info">Seule la première lettre du nom apparaitra. </span><span class="glyphicon glyphicon-info-sign"></span> 
+                    <p ng-show="formData.nom.$invalid && !formData.nom.$pristine" class="help-block">Un nom est nécessaire.</p>
                 </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-6">
-                        <button type="submit" class="btn btn-success" ng-disabled="formData.$invalid">Envoyer</button>
-                    </div>
+                <!--                <label for="firstName" class="col-sm-1 control-label">Nom</label>
+                                <div class="col-xs-4">
+                                    <input id="lastName" class="form-control" type="text" id="lastName" ng-model="formData.lastName">
+                                </div>-->
+            </div>
+            <div class="form-group has-feedback" ng-class="{ 'has-success' : formData.message.length > 0 }">
+                <label for="inputMessage" class="col-sm-2 control-label">Message</label>
+                <div class="col-sm-6">
+                    <textarea class="form-control" id="inputMessage" rows="3" placeholder="Votre message" ng-model="formData.message" required></textarea>
+                    <span class="glyphicon glyphicon-ok form-control-feedback" ng-show=" formData.message.length > 0"></span>
                 </div>
-            </form>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-6">
+                    <button type="submit" class="btn btn-success" ng-disabled="formData.$invalid" ng-click="addTemoignage(formData)">Envoyer</button>
+                </div>
+            </div>
+        </form>
 
         <!--
         <div class="chti-div-temoignage">

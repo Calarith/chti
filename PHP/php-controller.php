@@ -9,11 +9,15 @@ include_once '../PHP/config.php';
 $FILE_REP = $_SERVER["DOCUMENT_ROOT"]."/files/";
 error_reporting(E_ERROR | E_PARSE);
 
-if (isset($_FILES["file"])) {
-    //registrerToBlob
-    $request_var = new stdClass();
+$request_var = new stdClass();
+
+if(isset($_POST["action"])){
     $request_var->action = $_POST['action'];
     $request_var->data = json_decode($_POST['data']);
+}
+
+if (isset($_FILES["file"])) {
+    //registrerToBlob
     $test = file_get_contents($_FILES["file"]["tmp_name"]);
     $fp = fopen($_FILES["file"]["tmp_name"], 'rb');
     $content = fread($fp, filesize($_FILES["file"]["tmp_name"]));
@@ -43,13 +47,20 @@ if (isset($request_var->action)) {
     switch ($request_var->action) {
         // TEMOIGNAGES //
         case "getAllTemoignages":
+            $DBCommon = new itg_common('temoignage');
+            $result = $DBCommon->get_allTemoignages();
+            break;
+        case "getAllValideTemoignages":
             $DBtemoignage = new itg_temoignage();
-            $result = $DBtemoignage->get_allTemoignages();
-            ;
+            $result = $DBtemoignage->get_allValideTemoignages();
             break;
         case "addNewTemoignage":
             $DBtemoignage = new itg_temoignage();
             $result = $DBtemoignage->add_Temoignage($data->nom, $data->prenom, $data->message);
+            break;
+        case "dellTemoignage":
+            $DBCommon = new itg_common('temoignage');
+            $result = $DBCommon->del_Entity($data);
             break;
 
         // CLIENTS //
@@ -112,8 +123,30 @@ if (isset($request_var->action)) {
             $DBCommon = new itg_common('planning');
             $result = $DBCommon->chg_Entity($data);
             break;
-        case "downloadFilPlanning":
+        case "downloadFilePlanning":
             $DBCommon = new itg_common('planning');
+            $result = $DBCommon->download_DataFile($data);
+            break;
+        
+        // FACTURES //
+        case "getAllFactures":
+            $DBCommon = new itg_common('facture');
+            $result = $DBCommon->get_allEntities();
+            break;
+        case "addNewFacture":
+            $DBCommon = new itg_common('facture');
+            $result = $DBCommon->add_Entity($data);
+            break;
+        case "dellFacture":
+            $DBCommon = new itg_common('facture');
+            $result = $DBCommon->del_Entity($data);
+            break;
+        case "updateFacture":
+            $DBCommon = new itg_common('facture');
+            $result = $DBCommon->chg_Entity($data);
+            break;
+        case "downloadFileFacture":
+            $DBCommon = new itg_common('facture');
             $result = $DBCommon->download_DataFile($data);
             break;
         
@@ -187,8 +220,10 @@ function result($data) {
     $return->status = "ok";
     if(is_object($data)){
          $return->data = $data;
-    }else{
-        $return->data = $data==1?true:($data==0?false:$data);
+    }else if($data === null){
+       $return->data = null;
+    } else{
+        $return->data = $data==1?true:($data==0?false:$data); 
     }
     
     return json_encode($return);

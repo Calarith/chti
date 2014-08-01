@@ -107,3 +107,12 @@
 .panel-title a {
   cursor: pointer;
 }
+.datepicker td,
+th {
+  padding: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.well {
+  background-color: #369EA7;
+}

@@ -4,22 +4,24 @@
  * and open the template in the editor.
  */
 
-function updateArray(array, new_array) {
-    if (array.length === new_array.length) {
-        for (index in new_array) {
-            if (!angular.equals(array[index], new_array[index])) {
-                array[index] = new_array[index];
-            }
-        }
-    } else {
-        for (index in array) {
-            if (!angular.equals(array[index], new_array[index])) {
-                array[index] = new_array[index];
-            }
-        }
+function getFirstNameAndLastName(_text){
+    var result = null;
+    var tempo = _text.toLowerCase();
+    if(tempo.indexOf(' ') !== -1){
+       var tabName = tempo.split(" "); 
+       result.prenom = capitalize(tabName[0]);
+       if(tabName[1] !== ""){
+           result.nom = capitalize(tabName[0]).charAt(0);
+       }
+    }else{
+        result.prenom = capitalize(_text);
     }
+    return result;    
+}
 
-
+function capitalize(string)
+{
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 function merge(obj1, obj2, array_miss) { // Our merge function
@@ -46,6 +48,7 @@ function merge(obj1, obj2, array_miss) { // Our merge function
 }
 
 function formulaire_merge(newForm, oldForm, array_miss) {
+    debugger;
     for (i in oldForm) {
         if (array_miss.indexOf(i) === -1) {
             newForm[i] = oldForm[i];
@@ -53,12 +56,42 @@ function formulaire_merge(newForm, oldForm, array_miss) {
     }
 }
 
-
-function setFile (element) {
-    var _scope = angular.element("#formData_id").scope();
-    _scope.$apply(function(){
-        _scope.formData.data = element.files[0];
-    });
-    
-};
-
+function getMonthArray() {
+		return months = [{
+			label: 'Janvier',
+			value: 0
+		}, {
+			label: 'Février',
+			value: 1
+		}, {
+			label: 'Mars',
+			value: 2
+		}, {
+			label: 'Avril',
+			value: 3
+		}, {
+			label: 'Mai',
+			value: 4
+		}, {
+			label: 'Juin',
+			value: 5
+		}, {
+			label: 'Juillet',
+			value: 6
+		}, {
+			label: 'Août',
+			value: 7
+		}, {
+			label: 'Septembre',
+			value: 8
+		}, {
+			label: 'Octobre',
+			value: 9
+		}, {
+			label: 'Novembre',
+			value: 10
+		}, {
+			label: 'Décembre',
+			value: 11
+		}];
+	}

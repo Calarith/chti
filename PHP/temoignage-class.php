@@ -62,11 +62,33 @@ class itg_temoignage {
      * @global ezSQL_mysql $db
      * @return tab
      */
-    public function get_allTemoignages() {
+    public function get_allValideTemoignages() {
         global $db;
-        $result = $db->get_results("SELECT * FROM `temoignage` ORDER BY date");
+        $result = $db->get_results("SELECT * FROM `temoignage` WHERE valide = 1 ORDER BY date");
         return $result;
        
+    }
+    
+    /**
+     * Valide le témoignage.
+     * @global ezSQL_mysql $db
+     * @return true/false
+     */
+    public function valideTemoignage($_id) {
+        global $db;
+        $result = $db->get_results("UPDATE `temoignage` SET  `valide` =  1 WHERE id = ".$_id);
+        return $result;
+    }
+    
+    /**
+     * Invalide le témoignage.
+     * @global ezSQL_mysql $db
+     * @return true/false
+     */
+    public function invalideTemoignage($_id) {
+        global $db;
+        $result = $db->get_results("UPDATE `temoignage` SET `valide` =  0 WHERE id = ".$_id);
+        return $result;
     }
     
     
@@ -81,7 +103,7 @@ class itg_temoignage {
     
     public function add_Temoignage($nom, $prenom, $message) {
         global $db;
-        $result = $db->query("INSERT INTO temoignage (nom, prenom, message, date, valide) VALUES ('".$nom."', '".$prenom."', '".$message."', now(), 0);");
+        $result = $db->query("INSERT INTO temoignage (nom, prenom, message, date, valide, updated_at, created_at) VALUES ('".utf8_decode ( $nom )."', '".utf8_decode ( $prenom )."', '".utf8_decode ( $message )."', now(), 0,now(),now());");
         return $result;
         
     }

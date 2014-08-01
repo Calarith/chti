@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute', 'ngAnimate', 'jaydata'])
+var myApp = angular.module('myApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap'])
         .config(function($routeProvider, $locationProvider) {
             $routeProvider
                     .when('/accueil', {templateUrl: 'accueil.html', controller: "MainCtrl"})
@@ -82,7 +82,6 @@ myApp.controller('ContactCtrl', ['$scope', '$route', '$routeParams', '$location'
                 console.log("formulaire incorrect");
                 return;
             }
-            debugger;
             var data = $.param({
                 name : $scope.formData.name,
                 email : $scope.formData.email.$modelValue,
@@ -97,9 +96,7 @@ myApp.controller('ContactCtrl', ['$scope', '$route', '$routeParams', '$location'
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}  // set the headers so angular passing info as form data (not request payload)
             })
                     .success(function(data) {
-                        debugger;
                         console.log(data);
-
                     })
                     .error(function(data){
                         console.log(data);       
@@ -122,10 +119,9 @@ myApp.controller('DevisCtrl', ['$scope', '$route', '$routeParams', '$location', 
 
     }]);
 
-myApp.controller('TemoignagesCtrl', ['$scope','$location', '$anchorScroll','$http', 'BASE_CONSTS', function($scope, $location, $anchorScroll,$http, BASE_CONSTS) {
+myApp.controller('TemoignagesCtrl', ['$scope','$location', '$anchorScroll','$http', '$modal','BASE_CONSTS', function($scope, $location, $anchorScroll,$http, $modal, BASE_CONSTS) {
         $scope.BASE_CONSTS = BASE_CONSTS;
         $scope.name = "TemoignagesCtrl";
-        $scope.categories = [];
         $scope.temoignages = [];
         
         $scope.getTemoignages = function(){
@@ -192,84 +188,72 @@ myApp.controller('TemoignagesCtrl', ['$scope','$location', '$anchorScroll','$htt
             $http({
                 url : 'PHP/php-controller.php',
                 method : "POST",
-                data : JSON.stringify({action : "getAllTemoignages"}),
+                data : JSON.stringify({action : "getAllValideTemoignages"}),
                 headers : {'Content-Type' : 'application/json'}
               })
-                    .success(function(data) {
-                        console.log(data);
+                    .success(function(json) {
+                        angular.forEach(json.data, function(value, key) {
+                             $scope.temoignages.push(value);
+                        });
+                        $scope.temoignages = json.data;
                     })
-                    .error(function(data){
-                        console.log(data);       
+                    .error(function(json){
+                        console.log(json);       
                     });  
         };
-        
-              
-       
-        $scope.getTemoignages();
-        
-        // CALA : je dois faire quoi la ?
-        $scope.addTemoignage = function(){
-            $http({
-                url : 'PHP/php-controller.php',
-                method : "POST",
-                data : JSON.stringify({action : "addTemoignage", nom : $scope.formData.name, prenom : $scope.formData.forname, message : $scope.formData.message}),
-                headers : {'Content-Type' : 'application/json'}
-              })
-                    .success(function(data) {
-                        console.log(data);
-                    })
-                    .error(function(data){
-                        console.log(data);       
-                    });  
+
+
+        $scope.addTemoignage = function(_form) {
+            if (_form.$valid) {
+                _form.valide = false;
+                _form.date = new Date();
+                $http({
+                    url: 'PHP/php-controller.php',
+                    method: "POST",
+                    data: {data: _form, action: "addNewTemoignage"},
+                    headers: {'Content-Type': 'application/json'}
+                })
+                        .success(function(json) {
+                            if (json.status === "ok") {
+                                var modalInstance = $modal.open({
+                    //                templateUrl: 'admin_modal_client.html',
+                                    template: '<div class="modal-header"><h2>Message</h2></div><div class="modal-body">Merci pour votre temoignage. </div><div class="modal-footer"><button class="btn btn-primary" ng-click="ok()">CONTINUER</button></div>',
+                                    scope: $scope,
+                                    backdrop: 'static',
+                                    controller: 'ModalInstanceCtrl'
+                                       
+                                });
+                                modalInstance.result.then(function(_status) {
+                                    $scope.formData.nom = "";
+                                    $scope.formData.prenom = "";
+                                    $scope.formData.message = "";
+                                    $scope.formData.$setPristine();
+                                    $scope.getTemoignages();
+                                });
+ 
+                            }
+                        })
+                        .error(function(json) {
+                            console.log(json);
+                        });
+                 
+            }
+            
             
         };
-        
-        $scope.delTemoignage = function(){
-            
-        };
-        
-        $scope.chgTemoignage = function(){
-            
-        };
-        
-        $scope.valTemoignage = function(){
-            
-        };
-        
-        
-            
-        
-        
+
         $scope.scrollToAddNew = function(id) {
-            debugger;
             $location.hash(id);
-            //console.log($location.hash());
             $anchorScroll();
         };
+        
+        $scope.getTemoignages();
     }]);
-//
-//myApp.controller('ConnaissancesCtrl', ['$scope', '$route', '$routeParams', '$location', 'BASE_CONSTS', '$http', function($scope, $route, $routeParams, $location, BASE_CONSTS, $http) {
-//        $scope.BASE_CONSTS = BASE_CONSTS;
-//        $scope.name = "ProjetsCtrl";
-//        $scope.params = $routeParams;
-//        $scope.$route = $route;
-//        $scope.$location = $location;
-//        $scope.$routeParams = $routeParams;
-//        $scope.competences = [];
-//        $http.get('competences.json').success(function(data) {
-//            $scope.competences = data;
-//        });
-//    }]);
-//
-//myApp.controller('PresentationCtrl', ['$scope', '$route', '$routeParams', '$location', 'BASE_CONSTS', function($scope, $route, $routeParams, $location, BASE_CONSTS) {
-//        $scope.BASE_CONSTS = BASE_CONSTS;
-//        $scope.name = "PresentationCtrl";
-//        $scope.params = $routeParams;
-//    }]);
-//
-//function Project(name, language, annee) {
-//    this.name = name;
-//    this.language = language;
-//    this.annee = annee;
-//    
-//}  
+
+myApp.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', function($scope, $modalInstance) {
+       
+        $scope.ok = function () {
+          $modalInstance.close('ok');
+        };
+
+    }]);
