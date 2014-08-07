@@ -6,13 +6,11 @@
                     <img src="images/image-accueil-2.jpg" class="img-rounded img-thumbnail" alt="Photo de la voiture" />
                 </div>
                 <h3><u>Temoignages divers :</u></h3>
-                <div class="chti-div-temoignage">
-                    <blockquote class="italic"><p>"Une personne compétence et fiable en tout points de vue."</p>
-                    <p><small>Alexiel J.</small></p></blockquote>
-                </div>
-               <div class="chti-div-temoignage">
-                    <blockquote class="italic"><p>"Très pro, je le recommande !"</p>
-                    <p><small>Cedric S.</small></p></blockquote>
+                <div ng-controller="TemoignagesCtrl">
+                    <div ng-repeat="temoignage in temoignages | limitTo: 2 " class="chti-div-temoignage">
+                        <blockquote class="italic"><p>"{{temoignage.message}}"</p>
+                        <p><small>{{temoignage.initiale}}</small></p></blockquote>
+                    </div>
                 </div>
             </div>
             <div class="text-presentation col-md-8">    
@@ -35,7 +33,7 @@
         </div>
         <p>Je reste à votre disposition <br/>
             et je vous invite à me contacter pour toutes questions.</p>
-        <p><a class="btn btn-primary btn-lg">Me contacter &raquo;</a></p>
+        <p><a class="btn btn-primary btn-lg" href="#contact">Me contacter &raquo;</a></p>
     </div>
 </div>
 <div class="container">

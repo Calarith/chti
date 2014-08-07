@@ -22,19 +22,19 @@ myAdminApp.controller('AdminHeaderCtrl', ['$scope', 'BASE_CONSTS', function($sco
         $scope.BASE_CONSTS = BASE_CONSTS;
         $scope.navsites = [{
                 name: "Accueil",
-                url: "#accueil",
+                url: "http://www.chti-transport.fr/#/",
                 icon: "home"
             }, {
                 name: "Contact",
-                url: "#contact",
+                url: "http://www.chti-transport.fr/#/contact",
                 icon: "envelope"
             }, {
                 name: "Devis",
-                url: "#devis",
+                url: "http://www.chti-transport.fr/#/devis",
                 icon: "road"
             }, {
                 name: "Temoignages",
-                url: "#temoignages",
+                url: "http://www.chti-transport.fr/#/temoignages",
                 icon: "star-empty"
             }];
     }]);
@@ -66,7 +66,7 @@ myAdminApp.controller('AdminClientsCtrl', ['$scope', '$http', '$modal', 'BASE_CO
                 headers: {'Content-Type': 'application/json'}
             })
                     .success(function(json) {
-                        if (json.status === "ok") {
+                        if (json.status === "ok" && json.data != null) {
                             $scope.clients = angular.copy(json.data);
                         }
                     })
@@ -116,7 +116,7 @@ myAdminApp.controller('AdminClientsCtrl', ['$scope', '$http', '$modal', 'BASE_CO
                 }
             });
             modalInstance.result.then(function(_status) {
-                debugger;
+                
                 if (_status === "oui") {
                     $http({
                         url: '../PHP/php-controller.php',
@@ -158,6 +158,105 @@ myAdminApp.controller('AdminClientsCtrl', ['$scope', '$http', '$modal', 'BASE_CO
 
         $scope.getClients();
 
+    }]);
+
+
+myAdminApp.controller('AdminTemoignagesCtrl', ['$scope', '$http', '$modal', 'BASE_CONSTS', function($scope, $http, $modal, BASE_CONSTS) {
+        $scope.BASE_CONSTS = BASE_CONSTS;
+        $scope.name = "AdminTemoignagesCtrl";
+        $scope.status = {
+            isFirstOpen: true,
+            isFirstDisabled: false
+        };
+        $scope.temoignages = [];
+
+        $scope.getTemoignages = function() {
+            $http({
+                url: '../PHP/php-controller.php',
+                method: "POST",
+                data: {action: "getAllTemoignages"},
+                headers: {'Content-Type': 'application/json'}
+            })
+                    .success(function(json) {
+                        if (json.status === "ok" && json.data != null) {
+                            $scope.temoignages = angular.copy(json.data);
+                        }
+                    })
+                    .error(function(json) {
+                        console.log(json);
+                    });
+        }
+
+        $scope.dellTemoignage = function(_temoignage) {
+            var modalInstance = $modal.open({
+                template: '<div class="modal-header"><h2>Confirmation</h2></div><div class="modal-body">Etes vous sur de vouloir supprimer le temoignage de ' +_temoignage.prenom + " " + _temoignage.nom + '(' + _temoignage.id + ') ?</div><div class="modal-footer"><button class="btn btn-primary" ng-click="oui()">OUI</button><button class="btn btn-warning"  ng-click="non()">NON</button></div>',
+                controller: 'ModalInstanceCtrl',
+                scope: $scope,
+//                size: 'lg',
+                backdrop: 'static',
+                resolve: {
+                    dataForm: function() {
+                        return null;
+                    },
+                    action: function() {
+                        return "dellTemoignage";
+                    }
+                }
+            });
+            modalInstance.result.then(function(_status) {
+                
+                if (_status === "oui") {
+                    $http({
+                        url: '../PHP/php-controller.php',
+                        method: "POST",
+                        data: {data: {id: _client.id}, action: "dellTemoignage"},
+                        headers: {'Content-Type': 'application/json'}
+                    })
+                            .success(function(data) {
+                                $scope.getTemoignages();
+                            })
+                            .error(function(data) {
+                                console.log(data);
+                            });
+                }
+            });
+        }
+        
+        $scope.valideTemoignage = function(_temoignage) {
+            $http({
+                url: '../PHP/php-controller.php',
+                method: "POST",
+                data: {data: {'id' : _temoignage.id, 'valide' : true}, action: "valideTemoignage"},
+                headers: {'Content-Type': 'application/json'}
+            })
+                    .success(function(json) {
+                        if (json.status === "ok") {
+                            $scope.getTemoignages();
+                        }
+                    })
+                    .error(function(json) {
+                        console.log(json);
+                    });
+        }
+        
+        $scope.invalideTemoignage = function(_temoignage) {
+            $http({
+                url: '../PHP/php-controller.php',
+                method: "POST",
+                data: {data: {'id' : _temoignage.id, 'valide' : false}, action: "invalideTemoignage"},
+                headers: {'Content-Type': 'application/json'}
+            })
+                    .success(function(json) {
+                        if (json.status === "ok") {
+                            $scope.getTemoignages();
+                        }
+                    })
+                    .error(function(json) {
+                        console.log(json);
+                    });
+        }
+
+        $scope.getTemoignages();
     }]);
 
 myAdminApp.controller('AdminCircuitsCtrl', ['$scope', '$http', '$modal', 'BASE_CONSTS', function($scope, $http, $modal, BASE_CONSTS) {
@@ -227,7 +326,7 @@ myAdminApp.controller('AdminCircuitsCtrl', ['$scope', '$http', '$modal', 'BASE_C
                 }
             });
             modalInstance.result.then(function(_status) {
-                debugger;
+                
                 if (_status === "oui") {
                     $http({
                         url: '../PHP/php-controller.php',
@@ -336,7 +435,7 @@ myAdminApp.controller('AdminPlanningsCtrl', ['$scope', '$http', '$modal', '$filt
         });
 
         $scope.getPlanningByMonth = function(_indexMonth) {
-            debugger;
+            
             for (var i = 0; i < $scope.plannings.length; i++) {
                 if ($scope.plannings[i].mois == _indexMonth) {
                     return $scope.plannings[i];
@@ -386,7 +485,7 @@ myAdminApp.controller('AdminPlanningsCtrl', ['$scope', '$http', '$modal', '$filt
                 }
             });
             modalInstance.result.then(function(_status) {
-                debugger;
+                
                 if (_status === "oui") {
                     $http({
                         url: '../PHP/php-controller.php',
@@ -519,7 +618,7 @@ myAdminApp.controller('AdminFacturesCtrl', ['$scope', '$http', '$modal', '$filte
                 }
             });
             modalInstance.result.then(function(_status) {
-                debugger;
+                
                 if (_status === "oui") {
                     $http({
                         url: '../PHP/php-controller.php',
@@ -577,7 +676,7 @@ myAdminApp.controller('AdminFacturesCtrl', ['$scope', '$http', '$modal', '$filte
         }
         
         $scope.openCalendar = function($event) {
-            debugger;
+            
             $event.preventDefault();
             $event.stopPropagation();
 
@@ -616,10 +715,10 @@ myAdminApp.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', '$http',
         };
 
         $scope.init = function() {
-            debugger;
+            
             if (dataForm != null && dataForm != undefined) {
                     $timeout(function() {
-                        debugger;
+                        
                         var _scope = angular.element("#formData_id").scope();
                         formulaire_merge(_scope.formData, dataForm, ['created_at', 'updated_at']);
                     }, 100);
@@ -630,7 +729,7 @@ myAdminApp.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', '$http',
         
         $scope.cleanUpForm =function(_form){
             array_miss = ['created_at', 'updated_at', 'formData'];
-             debugger;
+             
             for (i in _form) {
                 if (array_miss.indexOf(i) != -1) {
                    
@@ -661,18 +760,18 @@ myAdminApp.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', '$http',
         };
 
         $scope.onFileSelected = function($files) {
-            debugger;
+            
             $scope.files = $files;
             $scope.form_scope = angular.element("#formData_id").scope();
             $scope.form_scope.formData.data_filename = $files[0] != undefined ? $files[0].name : null;
             $scope.form_scope.formData.$setDirty();
-            debugger;
+            
         };
 
         $scope.processUploadForm = function($files) {
             //$files: an array of files selected, each file has name, size, and type.
             $scope.form_scope = angular.element("#formData_id").scope();
-            debugger;
+            
             if($scope.form_scope.formData)
             $scope.upload = $upload.upload({
                 url: '../PHP/php-controller.php', //upload.php script, node.js route, or servlet url
@@ -702,7 +801,7 @@ myAdminApp.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', '$http',
 
 myAdminApp.filter('toFormatedDate', function() {
     return function(_date) {
-      debugger;
+      
         var d = _date;
 		var dd = d.getDate();
 		if (dd < 10) dd = '0' + dd

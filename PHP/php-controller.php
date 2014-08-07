@@ -48,7 +48,7 @@ if (isset($request_var->action)) {
         // TEMOIGNAGES //
         case "getAllTemoignages":
             $DBCommon = new itg_common('temoignage');
-            $result = $DBCommon->get_allTemoignages();
+            $result = $DBCommon->get_allEntities();
             break;
         case "getAllValideTemoignages":
             $DBtemoignage = new itg_temoignage();
@@ -61,6 +61,14 @@ if (isset($request_var->action)) {
         case "dellTemoignage":
             $DBCommon = new itg_common('temoignage');
             $result = $DBCommon->del_Entity($data);
+            break;
+        case "valideTemoignage":
+            $DBCommon = new itg_common('temoignage');
+            $result = $DBCommon->chg_Entity($data);
+            break;
+        case "invalideTemoignage":
+            $DBCommon = new itg_common('temoignage');
+            $result = $DBCommon->chg_Entity($data);
             break;
 
         // CLIENTS //

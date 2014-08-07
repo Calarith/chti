@@ -192,10 +192,13 @@ myApp.controller('TemoignagesCtrl', ['$scope','$location', '$anchorScroll','$htt
                 headers : {'Content-Type' : 'application/json'}
               })
                     .success(function(json) {
-                        angular.forEach(json.data, function(value, key) {
-                             $scope.temoignages.push(value);
-                        });
-                        $scope.temoignages = json.data;
+                        if (json.status === "ok" && json.data != null){
+                            angular.forEach(json.data, function(value, key) {
+                                value.initiale = getInitialeFromTemoignage(value);
+                            });
+                            $scope.temoignages = json.data;
+                        }
+                       
                     })
                     .error(function(json){
                         console.log(json);       

@@ -19,7 +19,7 @@
   font-size: 16px;
 }
 .important {
-  color: #ec6645;
+  color: #00e7fc;
 }
 .chti-nav-spacing {
   margin-left: 10%;
@@ -115,4 +115,10 @@ th {
 }
 .well {
   background-color: #369EA7;
+}
+.green {
+  color: green;
+}
+.red {
+  color: red;
 }

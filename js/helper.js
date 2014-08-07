@@ -5,7 +5,7 @@
  */
 
 function getFirstNameAndLastName(_text){
-    var result = null;
+    var result = {};
     var tempo = _text.toLowerCase();
     if(tempo.indexOf(' ') !== -1){
        var tabName = tempo.split(" "); 
@@ -22,6 +22,19 @@ function getFirstNameAndLastName(_text){
 function capitalize(string)
 {
     return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function getInitialeFromTemoignage(_temoignage){
+    var result = "";
+    if(_temoignage !== null){
+        if(_temoignage.prenom !== null){
+            result += capitalize(_temoignage.prenom) + "  ";
+        }
+        if(_temoignage.nom !== null){
+            result += capitalize(_temoignage.nom).charAt(0) + ".";
+        }
+        return result;
+    }
 }
 
 function merge(obj1, obj2, array_miss) { // Our merge function
@@ -48,7 +61,6 @@ function merge(obj1, obj2, array_miss) { // Our merge function
 }
 
 function formulaire_merge(newForm, oldForm, array_miss) {
-    debugger;
     for (i in oldForm) {
         if (array_miss.indexOf(i) === -1) {
             newForm[i] = oldForm[i];

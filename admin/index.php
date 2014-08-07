@@ -41,10 +41,10 @@ $admin->_authenticate();
     </head>
     <body ng-controller="AdminMainCtrl">
         <div class="container">
-            <div class="col-md-4">
-                <img src="../images/chti_logo_3.png" class="img-responsive"/>
-            </div>   
-            <div class="pull-right">   
+            <div style="margin-top:-20px;margin-left: 7%;">
+                <img src="../images/logos/Logo_RECTANGLE_transpBlc_mod2.png" class="img-responsive"/>   
+            </div> 
+            <div class="pull-right" style="position: absolute;top: 20px;right: 20px;">   
                 <fieldset>
                     <legend>Bienvenue <?php echo $admin->get_nicename(); ?></legend>
                         <p>

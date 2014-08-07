@@ -103,6 +103,43 @@
             </accordion>
         </div> 
     </div>
+    <div class="container">
+        <div class="col-md-6 chti-admin-list" ng-controller="AdminTemoignagesCtrl">
+            <h2>Temoignages</h2>
+            <accordion>
+                <accordion-group is-open="status.open">
+                    <accordion-heading>
+                        Vous avez {{temoignages.length}} temoignage(s) <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    Rechercher : <input type="search" ng-model="q" placeholder="rechercher... " />
+                    <ul class="chti-admin-clients-animate-container">
+                        <li class="animate-repeat chti-admin-client" ng-repeat="temoignage in temoignages| filter:q">
+                            <accordion>
+                                <accordion-group is-open="temoignage.open">
+                                    <accordion-heading>
+                                        <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': temoignage.open, 'glyphicon-chevron-right': !temoignage.open}" style="margin-right: 5px;"> </i> [{{temoignage.id}}] {{temoignage.prenom}} {{temoignage.nom}}
+                                        <i class="pull-right glyphicon" ng-class="{'glyphicon-ok-circle green': temoignage.valide == 1, 'glyphicon-ban-circle red': temoignage.valide == 0}" style="margin-right: 5px;"> </i>                                  
+                                    </accordion-heading>
+                                    <small>
+                                        "{{temoignage.message}}"<br/>
+                                        {{temoignage.date}}
+                                    </small>    
+                                    <button type="button" class="btn btn-warning btn-list-xs pull-right" title="Supprimer témoignage de {{temoignage.prenom}} {{temoignage.nom}} " ng-click="dellTemoignage(temoignage)">
+                                        <span class="glyphicon glyphicon-remove"></span></button>
+                                    <button ng-show="temoignage.valide==1" type="button" class="btn btn-default btn-list-xs pull-right" title="Invalider {{temoignage.prenom}} {{temoignage.nom}}" ng-click="invalideTemoignage(temoignage)">
+                                        <span class="glyphicon glyphicon-ban-circle"></span> invalider</button>
+                                    <button ng-show="temoignage.valide==0" type="button" class="btn btn-default btn-list-xs pull-right" title="Valider {{temoignage.prenom}} {{temoignage.nom}}" ng-click="valideTemoignage(temoignage)">
+                                        <span class="glyphicon glyphicon-ok-circle"></span> valider</button>  
+                                     
+                          
+                                </accordion-group>
+                            </accordion>    
+                        </li>
+                    </ul>
+                </accordion-group>
+            </accordion>
+        </div>
+    </div>
 </div>
 <div class="container">
     Administration powered by Pierre Péchaud-Rivière.

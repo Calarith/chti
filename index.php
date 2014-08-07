@@ -33,7 +33,7 @@
 <!--        <script src="js/vendor/jaydata/qDeferred.min.js"></script>-->
     </head>
     <body ng-controller="MainCtrl">
-        <div style="margin-top:-20px;">
+        <div style="margin-top:-20px;margin-left: 7%;">
             <img src="images/logos/Logo_RECTANGLE_transpBlc_mod2.png" class="img-responsive"/>   
         </div>
         <div class="navbar navbar-inverse navbar-top" ng-controller="HeaderCtrl" style="margin-bottom: 0px; ">
@@ -91,6 +91,7 @@
 
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
+        <script src="js/helper.js"></script>
         <script src="js/vendor/ui-bootstrap-tpls-0.11.0.min.js"></script>
         <script>
                                             var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
